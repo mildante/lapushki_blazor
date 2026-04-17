@@ -1,0 +1,161 @@
+﻿@page "/authPage"
+@using lapushki_blazor.ApiRequests.Models
+@using lapushki_blazor.ApiRequests.Services
+@using static lapushki_blazor.ApiRequests.Models.User
+
+@inject NavigationManager Navigation
+
+
+<PageTitle>Авторизация</PageTitle>
+
+<div class="auth-page">
+    <div class="auth-wrapper @(isAnimating ? "auth-card-hidden" : "auth-card-visible")">
+        <div class="auth-title">
+            @(isLogin ? "Войдите в аккаунт" : "Регистрация")
+        </div>
+
+        <div class="auth-card">
+            @if (isLogin)
+            {
+                <div class="auth-field">
+                    <label for="login-email">Почта</label>
+                    <input id="login-email" type="email" class="auth-input" @bind="authUser.email" />
+                </div>
+
+                <div class="auth-field">
+                    <label for="login-password">Пароль</label>
+                    <input id="login-password" type="password" class="auth-input" @bind="authUser.password" />
+                </div>
+
+                <button type="button" class="auth-button" @onclick="AuthUser">Войти</button>
+
+                <div class="auth-footer">
+                    Еще нет аккаунта?
+                    <span class="auth-link" @onclick="() => SwitchPanel(false)">Зарегистрироваться</span>
+                </div>
+            }
+            else
+            {
+                <div class="auth-grid">
+                    <div class="auth-field">
+                        <label for="first-name">Имя</label>
+                        <input id="first-name" type="text" class="auth-input" @bind="regUser.name" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="last-name">Фамилия</label>
+                        <input id="last-name" type="text" class="auth-input" @bind="regUser.surname" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="birth-date">Дата рождения</label>
+                        <input id="birth-date" type="date" class="auth-input" @bind="regUser.date_of_birth" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="phone">Телефон</label>
+                        <input id="phone" type="tel" class="auth-input" @bind="regUser.phone" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="gender">Пол</label>
+                        <select id="gender" class="auth-input auth-select" @bind="regUser.gender">
+                            <option value="">Выберите пол</option>
+                            <option value="Женский">Женский</option>
+                            <option value="Мужской">Мужской</option>
+                        </select>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="register-email">Почта</label>
+                        <input id="register-email" type="email" class="auth-input" @bind="regUser.email" />
+                    </div>
+
+                    <div class="auth-field auth-field-full">
+                        <label for="register-password">Пароль</label>
+                        <input id="register-password" type="password" class="auth-input" @bind="regUser.password" />
+                    </div>
+                </div>
+
+                <button type="button" class="auth-button" @onclick="RegUser">Зарегистрироваться</button>
+
+                <div class="auth-footer">
+                    Уже есть аккаунт?
+                    <span class="auth-link" @onclick="() => SwitchPanel(true)">Войти</span>
+                </div>
+            }
+        </div>
+        @if (!string.IsNullOrWhiteSpace(responseMessage))
+        {
+            <div class="auth-message">
+                @responseMessage
+            </div>
+        }
+    </div> 
+</div>
+
+@code {
+    private bool isLogin = true;
+    private bool isAnimating = false;
+
+    private string responseMessage;
+
+    [Inject] private UserService userService { get; set; }
+    [Inject] private UserRequests UserRequests { get; set; }
+
+    private UserModel regUser = new UserModel();
+    private AuthModel authUser = new AuthModel();
+
+    private async Task SwitchPanel(bool toLogin)
+    {
+        if (isLogin == toLogin)
+            return;
+        responseMessage = null;
+
+        isAnimating = true;
+        StateHasChanged();
+
+        await Task.Delay(180); ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        isLogin = toLogin;
+        isAnimating = false;
+    }
+
+    public async Task AuthUser()
+    {
+        var userResponse = await UserRequests.GetAuthorizeUser(authUser);
+        if (userResponse.status && userResponse.user != null)
+        {
+            userService.CurrentUser = userResponse.user;
+            responseMessage = "Загрузка...";
+            if (userService.isAdmin)
+                Navigation.NavigateTo("/userListPage");
+            else if (userService.isDoctor)
+                Navigation.NavigateTo("/appointments");
+            else
+                Navigation.NavigateTo("/profile");
+        }
+        else if (!userResponse.status || userResponse.user == null)
+            responseMessage = userResponse.message;
+    }
+    public async void RegUser()
+    {
+        if (string.IsNullOrWhiteSpace(regUser.email) || 
+            string.IsNullOrWhiteSpace(regUser.phone) || 
+            string.IsNullOrWhiteSpace(regUser.name) || 
+            string.IsNullOrWhiteSpace(regUser.password) ||
+            string.IsNullOrWhiteSpace(regUser.gender))
+        {
+            responseMessage = "Заполните все поля!";
+            return;
+        }
+
+        var userResponse = await UserRequests.CreateNewUser(regUser);
+        if (userResponse.status)
+        {
+            responseMessage = "Пользователь зарегистрирован. Выполните вход.";
+        }
+        else
+            responseMessage = userResponse.message;
+    }
+}

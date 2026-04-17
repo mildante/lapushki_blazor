@@ -1,0 +1,234 @@
+/* /Layout/MainLayout.razor.rz.scp.css */
+.page[b-l3s44i6qxj] {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background: #CDCDCD;
+}
+
+.sidebar[b-l3s44i6qxj] {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    background: transparent;
+}
+
+main[b-l3s44i6qxj] {
+    flex: 1;
+    min-width: 0;
+}
+
+.top-row[b-l3s44i6qxj] {
+    display: none;
+}
+
+.content[b-l3s44i6qxj] {
+    padding: 1.1rem;
+}
+
+@media (max-width: 640.98px) {
+    .page[b-l3s44i6qxj] {
+        flex-direction: column;
+    }
+
+    .sidebar[b-l3s44i6qxj] {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .top-row[b-l3s44i6qxj] {
+        display: flex;
+    }
+}
+/* /Layout/NavMenu.razor.rz.scp.css */
+/*:root {
+    --sidebar-bg: #261C6E;
+    --sidebar-light: #CDCDCD;
+    --sidebar-dark-text: #585858;
+    --sidebar-accent: #FF8800;
+    --sidebar-white: #FFFFFF;
+}
+
+.navbar-toggler {
+    background-color: rgba(255, 255, 255, 0.12);
+    border: none;
+    box-shadow: none;
+}
+
+.top-row {
+    display: none;
+}
+
+.nav-scrollable {
+    height: 100vh;
+    background: transparent;
+    padding: 8px 0 8px 12px;
+    box-sizing: border-box;
+}
+
+.sidebar-nav {
+    height: 100%;
+    width: 100%;
+    max-width: 230px;
+    background: var(--sidebar-bg);
+    border-top-right-radius: 22px;
+    border-bottom-right-radius: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px 14px 16px 14px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.sidebar-top {
+    display: flex;
+    flex-direction: column;
+}
+
+.brand-block {
+    padding: 6px 6px 22px 6px;
+}
+
+.sidebar-logo {
+    display: block;
+    max-width: 170px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+.menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.nav-item {
+    padding: 0;
+    margin: 0;
+}*/
+
+    /* для NavLink в изолированном css нужен ::deep */
+    /*.nav-item ::deep .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 48px;
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 14px;
+        text-decoration: none;
+        color: var(--sidebar-white) !important;
+        box-sizing: border-box;
+        transition: background 0.2s ease, color 0.2s ease;
+    }
+
+        .nav-item ::deep .nav-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--sidebar-white) !important;
+        }
+
+        .nav-item ::deep .nav-link.active {
+            background: rgba(255, 255, 255, 0.10);
+            color: var(--sidebar-white) !important;
+        }
+
+.icon-box {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 8px;
+    background: var(--sidebar-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sidebar-dark-text);
+    flex-shrink: 0;
+}
+
+.nav-item.emergency .icon-box {
+    background: var(--sidebar-accent);
+    color: var(--sidebar-white);
+}
+
+.menu-text {
+    color: var(--sidebar-white);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.15;
+}
+
+.profile-block {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 6px 4px 6px;
+}
+
+.profile-avatar {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 50%;
+    background: #F2F2F2;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+}
+
+.profile-name {
+    color: var(--sidebar-white);
+    font-size: 0.98rem;
+    font-weight: 600;
+}
+
+.profile-link {
+    color: var(--sidebar-light);
+    font-size: 0.88rem;
+    text-decoration: none;
+}
+
+    .profile-link:hover {
+        color: var(--sidebar-white);
+    }
+
+.bi {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+@media (max-width: 640.98px) {
+    .top-row {
+        display: flex;
+        height: 3.5rem;
+        background: var(--sidebar-bg);
+    }
+
+    .nav-scrollable {
+        height: auto;
+        padding: 0;
+    }
+
+    .sidebar-nav {
+        min-height: calc(100vh - 3.5rem);
+        max-width: 100%;
+        border-radius: 0 0 22px 0;
+        padding-top: 18px;
+    }
+}
+
+@media (min-width: 641px) {
+    .navbar-toggler {
+        display: none;
+    }
+
+    .collapse {
+        display: block;
+    }
+}*/

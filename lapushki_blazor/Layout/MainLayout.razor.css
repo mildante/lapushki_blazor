@@ -1,0 +1,43 @@
+.page {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    min-height: 100vh;
+    background: #CDCDCD;
+}
+
+.sidebar {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+    background: transparent;
+}
+
+main {
+    flex: 1;
+    min-width: 0;
+}
+
+.top-row {
+    display: none;
+}
+
+.content {
+    padding: 1.1rem;
+}
+
+@media (max-width: 640.98px) {
+    .page {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .top-row {
+        display: flex;
+    }
+}

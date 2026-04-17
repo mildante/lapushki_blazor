@@ -1,0 +1,111 @@
+﻿@page "/kkllk"
+
+<div class="auth-page">
+    <div class="auth-wrapper @(isAnimating ? "auth-card-hidden" : "auth-card-visible")">
+        <div class="auth-title">
+            @(isLogin ? "Войдите в аккаунт" : "Зарегистрируйтесь")
+        </div>
+
+        <div class="auth-card">
+            @if (isLogin)
+            {
+                <div class="auth-field">
+                    <label for="login-email">Почта</label>
+                    <input id="login-email" type="email" class="auth-input" @bind="loginEmail" />
+                </div>
+
+                <div class="auth-field">
+                    <label for="login-password">Пароль</label>
+                    <input id="login-password" type="password" class="auth-input" @bind="loginPassword" />
+                </div>
+
+                <button type="button" class="auth-button">Войти</button>
+
+                <div class="auth-footer">
+                    Еще нет аккаунта?
+                    <span class="auth-link" @onclick="() => SwitchPanel(false)">Зарегистрироваться</span>
+                </div>
+            }
+            else
+            {
+                <div class="auth-grid">
+                    <div class="auth-field">
+                        <label for="first-name">Имя</label>
+                        <input id="first-name" type="text" class="auth-input" @bind="firstName" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="last-name">Фамилия</label>
+                        <input id="last-name" type="text" class="auth-input" @bind="lastName" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="birth-date">Дата рождения</label>
+                        <input id="birth-date" type="date" class="auth-input" @bind="birthDate" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="phone">Телефон</label>
+                        <input id="phone" type="tel" class="auth-input" @bind="phone" />
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="gender">Пол</label>
+                        <select id="gender" class="auth-input auth-select" @bind="gender">
+                            <option value="">Выберите пол</option>
+                            <option value="Женский">Женский</option>
+                            <option value="Мужской">Мужской</option>
+                        </select>
+                    </div>
+
+                    <div class="auth-field">
+                        <label for="register-email">Почта</label>
+                        <input id="register-email" type="email" class="auth-input" @bind="registerEmail" />
+                    </div>
+
+                    <div class="auth-field auth-field-full">
+                        <label for="register-password">Пароль</label>
+                        <input id="register-password" type="password" class="auth-input" @bind="registerPassword" />
+                    </div>
+                </div>
+
+                <button type="button" class="auth-button">Зарегистрироваться</button>
+
+                <div class="auth-footer">
+                    Уже есть аккаунт?
+                    <span class="auth-link" @onclick="() => SwitchPanel(true)">Войти</span>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool isLogin = true;
+    private bool isAnimating = false;
+
+    private string? loginEmail;
+    private string? loginPassword;
+
+    private string? firstName;
+    private string? lastName;
+    private DateOnly? birthDate;
+    private string? phone;
+    private string? gender;
+    private string? registerEmail;
+    private string? registerPassword;
+
+    private async Task SwitchPanel(bool toLogin)
+    {
+        if (isLogin == toLogin)
+            return;
+
+        isAnimating = true;
+        StateHasChanged();
+
+        await Task.Delay(180);
+
+        isLogin = toLogin;
+        isAnimating = false;
+    }
+}
