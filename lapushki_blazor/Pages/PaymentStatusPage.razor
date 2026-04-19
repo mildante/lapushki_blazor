@@ -1,0 +1,63 @@
+﻿@page "/payment-success"
+@using lapushki_blazor.ApiRequests.Services
+
+@inject PaymentsApiService PaymentService
+@inject NavigationManager Navigation
+
+<h3>Статус оплаты</h3>
+
+@if (isLoading)
+{
+    <p>Проверяем оплату...</p>
+}
+else
+{
+    <p>@statusText</p>
+}
+
+@code {
+    private bool isLoading = true;
+    private string statusText = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            // 👉 получаем paymentId из URL
+            var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
+            var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+            var paymentId = query["paymentId"];
+
+            if (string.IsNullOrEmpty(paymentId))
+            {
+                statusText = "Не удалось определить платеж ❌";
+                return;
+            }
+
+            // 👉 проверяем статус через API
+            var result = await PaymentService.CheckPaymentStatus(paymentId);
+
+            if (result != null)
+            {
+                if (result == "Succeeded")
+                    statusText = "Оплата прошла успешно ✅";
+                else if (result == "Pending")
+                    statusText = "Платеж в процессе ⏳";
+                else
+                    statusText = "Оплата не выполнена ❌";
+            }
+            else
+            {
+                statusText = "Ошибка при проверке оплаты ❌";
+            }
+        }
+        catch
+        {
+            statusText = "Ошибка при проверке оплаты ❌";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

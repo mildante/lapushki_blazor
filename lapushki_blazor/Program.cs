@@ -8,6 +8,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddScoped<PaymentsApiService>();
 builder.Services.AddScoped<AppointmentRequests>();
 builder.Services.AddScoped<PetRequests>();
 builder.Services.AddScoped<UserRequests>();

@@ -8,7 +8,7 @@ namespace lapushki_blazor.ApiRequests.Models
         {
             public int id_service { get; set; }
             public string name { get; set; }
-            public double price { get; set; }
+            public decimal price { get; set; }
             public int duration { get; set; }
         }
         public class ClinicServiceListResponse

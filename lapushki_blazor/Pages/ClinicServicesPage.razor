@@ -76,7 +76,7 @@
                             <select @bind="selectedDoctorId">
                                 @foreach (var doctor in doctors)
                                 {
-                                    <option value="@doctor.id_user">@doctor.user.name @doctor.user.surname, @doctor.specialization</option>
+                                    <option value="@doctor.id_doctor">@doctor.user.name @doctor.user.surname, @doctor.specialization</option>
                                 }
                             </select>
                         </div>
@@ -123,7 +123,7 @@
                             <strong>@selectedServicePrice.ToString("0.00") ₽</strong>
                         </div>
 
-                        <button class="booking-pay-btn">Оплатить</button>
+                        <button class="booking-pay-btn" @onclick="Pay">Оплатить</button>
                     </div>
                 </div>
             </div>
@@ -151,6 +151,7 @@
 @code {
     [Inject] private AppointmentRequests AppointmentRequests { get; set; }
     [Inject] private PetRequests PetRequests { get; set; }
+    [Inject] private PaymentsApiService PaymentService { get; set; }
     [Inject] private UserService userService { get; set; }
 
     private bool isAuthorized => userService.CurrentUser != null;
@@ -175,7 +176,7 @@
     private int selectedPetId;
 
     private DoctorModel? selectedDoctor =>
-        doctors?.FirstOrDefault(x => x.id_user == selectedDoctorId);
+        doctors?.FirstOrDefault(x => x.id_doctor == selectedDoctorId);
 
     private TimeOnly startTime => selectedDoctor?.work_start ?? new TimeOnly(9, 0);
     private TimeOnly endTime => selectedDoctor?.work_end ?? new TimeOnly(18, 0);
@@ -189,8 +190,10 @@
 
     private TimeOnly selectedTime;
 
-    private double selectedServicePrice =>
+    private decimal selectedServicePrice =>
         services?.FirstOrDefault(x => x.id_service == selectedServiceId)?.price ?? 0;
+
+    private int createdAppointmentId;
 
     protected override async Task OnInitializedAsync()
     {
@@ -215,22 +218,22 @@
         }  
     }
 
-    private async void OpenBookingModal(bool isAuthorized, ClinicServiceModel service)
+    private async Task OpenBookingModal(bool isAuthorized, ClinicServiceModel service)
     {
         selectedServiceId = service.id_service;
 
         if (doctors != null && doctors.Count > 0)
-            selectedDoctorId = doctors.First().id_user;
+            selectedDoctorId = doctors.First().id_doctor;
 
         if (pets != null && pets.Count > 0)
             selectedPetId = pets.First().id_pet;
 
         selectedDate = DateOnly.FromDateTime(DateTime.Today);
         await RefreshBookedSlots();
-    
+
         var available = GetAvailableSlots();
         selectedTime = available.FirstOrDefault();
-    
+
         isBookingModalOpen = true;
         StateHasChanged();
     }
@@ -272,6 +275,49 @@
             var response = await AppointmentRequests.GetAllAppointmentsByDoctor(selectedDoctorId);
             bookedAppointments = response.list.Where(x => x.date == selectedDate).ToList();
         }
+    }
+
+    private async Task Pay()
+    {
+        createdAppointmentId = await CreateAppointment();
+        if (createdAppointmentId == 0)
+            return;
+
+        decimal amount = selectedServicePrice;
+        int appointmentId = createdAppointmentId;
+
+        var result = await PaymentService.CreatePayment(new Payments.CreatePaymentRequest
+        {
+            Amount = amount,
+            Description = "Запись к ветеринару",
+            AppointmentId = appointmentId
+        });
+
+        if (result != null && result.Status == true)
+        {
+            string url = result.ConfirmationUrl;
+
+            Navigation.NavigateTo(url, true);
+        }
+    }
+
+    private async Task<int> CreateAppointment()
+    {
+        var response = await AppointmentRequests.AddAppointment(new AppointmentModel
+        {
+            doctor_id = selectedDoctorId,
+            service_id = selectedServiceId,
+            pet_id = selectedPetId,
+            date = selectedDate,
+            time = selectedTime
+        });
+
+        if (response != null && response.status)
+        {
+            return response.newAppointment.id;
+        }
+
+        return 0;
     }
 
     private void GoToLogin()

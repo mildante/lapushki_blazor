@@ -12,6 +12,8 @@ namespace lapushki_blazor.ApiRequests.Models
             public int pet_id { get; set; }
             public DateOnly date { get; set; }
             public TimeOnly time { get; set; }
+            public string status { get; set; }
+            public string? payment_id { get; set; }
         }
 
         public class AppointmentListResponse
@@ -23,6 +25,7 @@ namespace lapushki_blazor.ApiRequests.Models
         {
             public bool status { get; set; }
             public string message { get; set; }
+            public AppointmentModel newAppointment { get; set; }
         }
         public class UpdateAppointmentResponse
         {
