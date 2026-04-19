@@ -1035,6 +1035,6 @@ D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\refint
 D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\lapushki_blazor.pdb
 D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\ref\lapushki_blazor.dll
 D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\lapushki_blazor.sourcelink.json
-D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\compressed\da68p7s4u5-{0}-8fnntb3m1a-8fnntb3m1a.gz
-D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\compressed\7rodb1iesu-{0}-qkml89fl60-qkml89fl60.gz
-D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\compressed\oqi6gey23i-{0}-qjrd86zk4z-qjrd86zk4z.gz
+D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\compressed\da68p7s4u5-{0}-q21z8tog8n-q21z8tog8n.gz
+D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\compressed\7rodb1iesu-{0}-uuwvofrvtb-uuwvofrvtb.gz
+D:\study\KTITS\kursovaya\lapushki_blazor\lapushki_blazor\obj\Debug\net8.0\compressed\oqi6gey23i-{0}-drq9ekt9qm-drq9ekt9qm.gz

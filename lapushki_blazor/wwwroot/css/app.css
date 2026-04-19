@@ -213,6 +213,20 @@ main {
     font-size: 1rem;
     line-height: 1;
 }
+.login-button {
+    display: inline-block;
+    padding: 10px 16px;
+    background: #2d247c;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+    .login-button:hover {
+        background: #3f35a5;
+    }
 
 @media (max-width: 640.98px) {
     .page {
@@ -1151,3 +1165,335 @@ main {
     .booking-login-btn:active {
         transform: scale(0.96);
     }
+
+
+/*Info Page =================================================================================================================*/
+.useful-info-page {
+    min-height: 100vh;
+    padding: 30px 20px 50px;
+}
+
+.useful-info-title {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    font-size: 48px;
+    font-weight: 800;
+    color: #2d247c;
+    margin-bottom: 28px;
+    line-height: 1.1;
+}
+
+.info-card {
+    position: relative;
+    z-index: 1;
+    max-width: 850px;
+    margin: 0 auto 34px auto;
+    background: #f3f3f3;
+    border: 2px solid #6d63b5;
+    border-radius: 22px;
+    box-shadow: 0 8px 24px rgba(70, 55, 140, 0.25);
+    padding: 50px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.info-card-text {
+    flex: 1;
+    max-width: 560px;
+}
+
+    .info-card-text h2 {
+        font-size: 34px;
+        font-weight: 800;
+        color: #555;
+        margin: 0 0 18px 0;
+        line-height: 1.15;
+    }
+
+    .info-card-text ol {
+        margin: 0;
+        padding-left: 26px;
+        color: #666;
+    }
+
+    .info-card-text li {
+        font-size: 20px;
+        line-height: 1.35;
+        margin-bottom: 12px;
+        font-weight: 500;
+    }
+
+.info-card-image {
+    flex-shrink: 0;
+    width: 320px;
+}
+
+    .info-card-image img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        border-radius: 18px;
+        border: 2px solid #6d63b5;
+        display: block;
+    }
+
+.emergency-btn {
+    margin-top: 18px;
+    background: #ff9800;
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 14px 30px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+    .emergency-btn:hover {
+        background: #ec8c00;
+        transform: translateY(-1px);
+    }
+
+@media (max-width: 900px) {
+    .useful-info-title {
+        font-size: 34px;
+    }
+
+    .info-card {
+        flex-direction: column;
+        text-align: left;
+        padding: 24px 20px;
+        gap: 24px;
+    }
+
+    .info-card-text {
+        max-width: 100%;
+    }
+
+        .info-card-text h2 {
+            font-size: 28px;
+        }
+
+        .info-card-text li {
+            font-size: 20px;
+        }
+
+    .info-card-image {
+        width: 100%;
+        max-width: 320px;
+    }
+
+        .info-card-image img {
+            height: 240px;
+        }
+
+    .emergency-btn {
+        font-size: 20px;
+        padding: 12px 24px;
+    }
+}
+
+/*Emergency Page =======================================================================================================================*/
+.emergency-page {
+    min-height: 100vh;
+    padding: 40px 20px 80px;
+    display: flex;
+    justify-content: center;
+}
+
+.emergency-hero {
+    width: 100%;
+    max-width: 1100px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+.emergency-title {
+    margin: 0 0 22px 0;
+    font-size: 56px;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #2d247c;
+}
+
+.emergency-text {
+    margin: 0 0 34px 0;
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #2f2f2f;
+}
+
+.emergency-highlight {
+    color: #2d247c;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+    font-weight: 600;
+}
+
+.emergency-call-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 230px;
+    height: 68px;
+    padding: 0 34px;
+    border: none;
+    border-radius: 999px;
+    background: #ff9200;
+    color: #fff;
+    font-size: 34px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 6px 16px rgba(255, 146, 0, 0.28);
+    transition: 0.2s ease;
+    cursor: pointer;
+}
+
+    .emergency-call-btn:hover {
+        background: #f28700;
+        transform: translateY(-1px);
+    }
+
+    .emergency-call-btn:active {
+        transform: translateY(0);
+    }
+
+@media (max-width: 900px) {
+    .emergency-title {
+        font-size: 42px;
+    }
+
+    .emergency-text {
+        font-size: 22px;
+    }
+
+    .emergency-call-btn {
+        min-width: 190px;
+        height: 58px;
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 600px) {
+    .emergency-page {
+        padding: 30px 16px 60px;
+    }
+
+    .emergency-title {
+        font-size: 32px;
+    }
+
+    .emergency-text {
+        font-size: 18px;
+    }
+
+    .emergency-call-btn {
+        min-width: 170px;
+        height: 52px;
+        font-size: 24px;
+        padding: 0 26px;
+    }
+}
+.emergency-info {
+    margin-top: 60px;
+    display: flex;
+    justify-content: center;
+}
+
+.clinic-info-card {
+    width: 100%;
+    max-width: 900px;
+    background: #f3f3f3;
+    border-radius: 22px;
+    border: 2px solid #6d63b5;
+    padding: 30px 34px;
+    box-shadow: 0 8px 20px rgba(70, 55, 140, 0.2);
+}
+
+.clinic-title {
+    margin: 0 0 20px 0;
+    font-size: 32px;
+    font-weight: 800;
+    color: #2d247c;
+}
+
+.clinic-address,
+.clinic-stop {
+    font-size: 22px;
+    margin-bottom: 14px;
+    color: #333;
+}
+
+.clinic-phone {
+    font-size: 22px;
+    color: #333;
+    margin: 15px;
+}
+
+    .clinic-phone a {
+        color: #ff9200;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+        .clinic-phone a:hover {
+            text-decoration: underline;
+        }
+
+.transport-group {
+    margin-top: 20px;
+}
+
+.transport-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.transport-list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+    .transport-list span {
+        background: #39a935;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 10px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    /* синие для троллейбусов */
+    .transport-list.blue span {
+        background: #2f6bd8;
+    }
+
+@media (max-width: 600px) {
+    .clinic-title {
+        font-size: 26px;
+    }
+
+    .clinic-address,
+    .clinic-stop,
+    .clinic-phone {
+        font-size: 18px;
+    }
+
+    .transport-title {
+        font-size: 18px;
+    }
+
+    .transport-list span {
+        font-size: 16px;
+        padding: 5px 10px;
+    }
+}

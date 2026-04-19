@@ -1,4 +1,6 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
+﻿@using lapushki_blazor.ApiRequests.Models
+@using static lapushki_blazor.ApiRequests.Models.User
+<div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
@@ -52,11 +54,11 @@
                 </div>
 
                 <div class="nav-item">
-                    <NavLink class="nav-link" href="faq">
+                    <NavLink class="nav-link" href="useful-info">
                         <span class="icon-box">
                             <i class="bi bi-file-earmark-text-fill"></i>
                         </span>
-                        <span class="menu-text">FAQ</span>
+                        <span class="menu-text">Полезная информация</span>
                     </NavLink>
                 </div>
 
@@ -72,16 +74,33 @@
         </div>
 
         <div class="profile-block">
-            <div class="profile-avatar"></div>
-            <div class="profile-info">
-                <span class="profile-name">Имя Фамилия</span>
-                <a href="/authPage" class="profile-link">Перейти в профиль</a>
-            </div>
+            @if (isAuthorized)
+            {
+                <div class="profile-avatar"></div>
+                <div class="profile-info">
+                    <span class="profile-name">
+                        @currentUser.name @currentUser.surname
+                    </span>
+                    <a href="/profile" class="profile-link">Перейти в профиль</a>
+                </div>
+            }
+            else
+            {
+                <div class="profile-info">
+                    <a href="/authPage" class="login-button">Войти</a>
+                </div>
+            }
         </div>
     </nav>
 </div>
 
 @code {
+    [Inject] private UserService userService { get; set; }
+
+    private bool isAuthorized => userService.CurrentUser != null;
+
+    private UserModel currentUser;
+
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
@@ -89,5 +108,10 @@
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        currentUser = userService.CurrentUser;
     }
 }

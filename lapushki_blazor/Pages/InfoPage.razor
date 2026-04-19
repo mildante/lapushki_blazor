@@ -1,0 +1,64 @@
+﻿@page "/useful-info"
+@inject NavigationManager Navigation
+
+<PageTitle>Полезная информация</PageTitle>
+
+<div class="useful-info-page">
+    <h1 class="useful-info-title">Полезная информация</h1>
+
+    <div class="info-card">
+        <div class="info-card-text">
+            <h2>Подготовка к приему</h2>
+            <ol>
+                <li>Не кормить животное за 6–8 часов (если планируется анализ или операция)</li>
+                <li>Взять ветеринарный паспорт</li>
+                <li>Перевозите питомца в безопасной переноске для него перевозке, чтобы минимизировать стресс.</li>
+            </ol>
+        </div>
+
+        <div class="info-card-image">
+            <img src="/images/cat.jpeg" alt="Подготовка к приему" />
+        </div>
+    </div>
+
+    <div class="info-card">
+        <div class="info-card-text">
+            <h2>Вакцинация и профилактика</h2>
+            <ol>
+                <li>Вакцинация обязательна 1 раз в год</li>
+                <li>Перед прививкой обязательно проводить дегельминтизацию</li>
+                <li>После прививки избегать нагрузок 2–3 дня</li>
+                <li>Щенков и котят прививают по установленному графику</li>
+            </ol>
+        </div>
+
+        <div class="info-card-image">
+            <img src="/images/pervichnii_osmotr_1.jpg" alt="Вакцинация и профилактика" />
+        </div>
+    </div>
+
+    <div class="info-card">
+        <div class="info-card-text">
+            <h2>Когда срочно к врачу</h2>
+            <ol>
+                <li>Отказ от еды более суток</li>
+                <li>Вялость, апатия</li>
+                <li>Тяжелое дыхание</li>
+                <li>Судороги или потеря сознания</li>
+            </ol>
+
+            <button class="emergency-btn" @onclick="GoToEmergency">Экстренная помощь</button>
+        </div>
+
+        <div class="info-card-image">
+            <img src="/images/emergency.jpg" alt="Когда срочно к врачу" />
+        </div>
+    </div>
+</div>
+@code {
+
+    private void GoToEmergency()
+    {
+        Navigation.NavigateTo("emergency");
+    }
+}
