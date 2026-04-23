@@ -1,0 +1,246 @@
+﻿@page "/admin"
+@using lapushki_blazor.ApiRequests.Models
+@using lapushki_blazor.ApiRequests.Services
+@using static lapushki_blazor.ApiRequests.Models.Doctor
+@using static lapushki_blazor.ApiRequests.Models.Appointment
+@using static lapushki_blazor.ApiRequests.Models.Pet
+@using static lapushki_blazor.ApiRequests.Models.User
+
+<PageTitle>Админ-панель</PageTitle>
+
+<div class="admin-page">
+    <div class="admin-panel">
+        <div class="admin-tabs">
+            <button class="admin-tab @(activeTab == "users" ? "active" : "")" @onclick='() => SwitchTab("users")'>
+                Пользователи
+            </button>
+            <button class="admin-tab @(activeTab == "doctors" ? "active" : "")" @onclick='() => SwitchTab("doctors")'>
+                Доктора
+            </button>
+            <button class="admin-tab @(activeTab == "pets" ? "active" : "")" @onclick='() => SwitchTab("pets")'>
+                Питомцы
+            </button>
+            <button class="admin-tab @(activeTab == "appointments" ? "active" : "")" @onclick='() => SwitchTab("appointments")'>
+                Записи
+            </button>
+        </div>
+
+        @if (activeTab == "users")
+        {
+            <div class="table-shell">
+                <table class="lapushki-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Пол</th>
+                            <th>Дата рождения</th>
+                            <th>Аватар</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (users == null || users.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5" class="empty-cell">Нет данных</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var user in users)
+                            {
+                                <tr>
+                                    <td>@user.id_user</td>
+                                    <td>@user.name</td>
+                                    <td>@user.surname</td>
+                                    <td>@user.email</td>
+                                    <td>@user.phone</td>
+                                    <td>@user.gender</td>
+                                    <td>@user.date_of_birth</td>
+                                    <td>@user.avatar</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>            
+        }
+        @if (activeTab == "doctors")
+        {
+            <div class="table-shell">
+                <table class="lapushki-table">
+                    <thead>
+                        <tr>
+                            <th>ID доктора</th>
+                            <th>Имя</th>
+                            <th>Фамилия</th>
+                            <th>Email</th>
+                            <th>Телефон</th>
+                            <th>Специализация</th>
+                            <th>Начало</th>
+                            <th>Конец</th>
+                            <th>Слот</th>
+                            <th>Активен</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (doctors == null || doctors.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5" class="empty-cell">Нет данных</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var doctor in doctors)
+                            {
+                                <tr>
+                                    <td>@doctor.id_doctor</td>
+                                    <td>@doctor.user.name</td>
+                                    <td>@doctor.user.surname</td>
+                                    <td>@doctor.user.email</td>
+                                    <td>@doctor.user.phone</td>
+                                    <td>@doctor.specialization</td>
+                                    <td>@doctor.work_start</td>
+                                    <td>@doctor.work_end</td>
+                                    <td>@doctor.duration_slot</td>
+                                    <td>@doctor.is_active</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        @if (activeTab == "pets")
+        {
+            <div class="table-shell">
+                <table class="lapushki-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Имя</th>
+                            <th>Порода</th>
+                            <th>Вид</th>
+                            <th>Пол</th>
+                            <th>Дата рождения</th>
+                            <th>Владелец</th>
+                            <th>Описание</th>
+                            <th>Фото</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (pets == null || pets.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5" class="empty-cell">Нет данных</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var pet in pets)
+                            {
+                                <tr>
+                                    <td>@pet.id_pet</td>
+                                    <td>@pet.name</td>
+                                    <td>@pet.breed</td>
+                                    <td>@pet.species</td>
+                                    <td>@pet.gender</td>
+                                    <td>@pet.date_of_birth</td>
+                                    <td>@pet.user_id</td>
+                                    <td>@pet.description</td>
+                                    <td>@pet.image</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        @if (activeTab == "appointments")
+        {
+            <div class="table-shell">
+                <table class="lapushki-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Доктор ID</th>
+                            <th>Питомец ID</th>
+                            <th>ID услуги</th>
+                            <th>Дата</th>
+                            <th>Время</th>
+                            <th>Статус</th>
+                            <th>Платёж</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (appointments == null || appointments.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="5" class="empty-cell">Нет данных</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var appointment in appointments)
+                            {
+                                <tr>
+                                    <td>@appointment.id</td>
+                                    <td>@appointment.doctor_id</td>
+                                    <td>@appointment.pet_id</td>
+                                    <td>@appointment.service_id</td>
+                                    <td>@appointment.date</td>
+                                    <td>@appointment.time</td>
+                                    <td>@appointment.status</td>
+                                    <td>@appointment.payment_id</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@code{
+    [Inject] private UserService userService { get; set; }
+
+    private string activeTab = "users";
+
+    private bool isAdmin => userService.CurrentUser.role_id == 1;
+
+    [Inject] private UserRequests UserRequests { get; set; }
+    [Inject] private PetRequests PetRequests { get; set; }
+    [Inject] private AppointmentRequests AppointmentRequests { get; set; }
+
+    private List<UserModel> users { get; set; }
+    private List<PetModel> pets { get; set; }
+    private List<AppointmentModel> appointments { get; set; }
+    private List<DoctorModel> doctors { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (isAdmin)
+        {
+            var getPetResponse = await PetRequests.GetAllPets();
+            pets = getPetResponse.list;
+
+            var getUserResponse = await UserRequests.GetAllUser();
+            users = getUserResponse.list;
+
+            var getAppointmentResponse = await AppointmentRequests.GetAllAppointments();
+            appointments = getAppointmentResponse.list;
+
+            var getDoctorResponse = await AppointmentRequests.GetAllDoctors();
+            doctors = getDoctorResponse.list;
+        }
+    }
+    private void SwitchTab(string tab)
+    {
+        activeTab = tab;
+    }
+}

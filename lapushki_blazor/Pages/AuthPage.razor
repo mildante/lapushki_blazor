@@ -128,10 +128,11 @@
         {
             userService.CurrentUser = userResponse.user;
             responseMessage = "Загрузка...";
+            userService.Noitify();
             if (userService.isAdmin)
-                Navigation.NavigateTo("/userListPage");
+                Navigation.NavigateTo("/admin");
             else if (userService.isDoctor)
-                Navigation.NavigateTo("/appointments");
+                Navigation.NavigateTo("/doctor");
             else
                 Navigation.NavigateTo("/profile");
         }

@@ -4,92 +4,141 @@
 @using static lapushki_blazor.ApiRequests.Models.Pet
 @using static lapushki_blazor.ApiRequests.Models.User
 
+@inject NavigationManager Navigation
+
 <div class="profile-page">
     <div class="profile-layout">
 
         <section class="pets-section">
-            <div class="section-title">Ваши питомцы</div>
-
-            @if (userPets == null)
+            @if (updateUser.role_id == 3)
             {
-                <div>Загрузка...</div>
-            }
-            else if (userPets.Count == 0)
-            {
-                <div class="empty-pets-text">У вас пока нет питомцев</div>
-            }
+                <div class="section-title">Ваши питомцы</div>
 
-            else
-            {
-                <div class="pets-card-wrapper">
-                    <button type="button" class="slider-arrow left" @onclick="PrevPet" disabled="@isAddMode">
-                        <i class="bi bi-caret-left-fill"></i>
-                    </button>
+                @if (userPets == null)
+                {
+                    <div>Загрузка...</div>
+                }
+                else if (userPets.Count == 0)
+                {
+                    <div class="empty-pets-text">У вас пока нет питомцев</div>
+                    <button type="button" class="add-pet-btn" @onclick="AddPet">Добавить питомца +</button>
+                }
+                else
+                {
+                    <div class="pets-card-wrapper">
+                        <button type="button" class="slider-arrow left" @onclick="PrevPet" disabled="@isAddMode">
+                            <i class="bi bi-caret-left-fill"></i>
+                        </button>
 
-                    <div class="pets-card @animateDirection">
-                        <div class="pet-form-column">
-                            <div class="form-group">
-                                <label>Кличка</label>
-                                <input class="profile-input" type="text" @bind="CurrentPet.name"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Порода</label>
-                                <input class="profile-input" type="text" @bind="CurrentPet.breed"/>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Вид</label>
-                                <input class="profile-input" type="text" @bind="CurrentPet.species" />
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group half">
-                                    <label>Дата рождения</label>
-                                    <input class="profile-input" type="date" @bind="CurrentPet.date_of_birth" />
-                                    <div class="hint-text">*не знаете точную дату? укажите примерную</div>
+                        <div class="pets-card @animateDirection">
+                            <div class="pet-form-column">
+                                <div class="form-group">
+                                    <label>Кличка</label>
+                                    <input class="profile-input" type="text" @bind="CurrentPet.name" />
                                 </div>
 
-                                <div class="form-group half">
-                                    <label>Пол</label>
-                                    <input class="profile-input" type="text" @bind="CurrentPet.gender" />
+                                <div class="form-group">
+                                    <label>Порода</label>
+                                    <input class="profile-input" type="text" @bind="CurrentPet.breed" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Вид</label>
+                                    <input class="profile-input" type="text" @bind="CurrentPet.species" />
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group half">
+                                        <label>Дата рождения</label>
+                                        <input class="profile-input" type="date" @bind="CurrentPet.date_of_birth" />
+                                        <div class="hint-text">*не знаете точную дату? укажите примерную</div>
+                                    </div>
+
+                                    <div class="form-group half">
+                                        <label>Пол</label>
+                                        <input class="profile-input" type="text" @bind="CurrentPet.gender" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Особые приметы</label>
+                                    <textarea class="profile-textarea" @bind="CurrentPet.description"></textarea>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label>Особые приметы</label>
-                                <textarea class="profile-textarea" @bind="CurrentPet.description"></textarea>
-                            </div>
+                            <div class="pet-image-column">
+                                <div class="pet-photo-box @(string.IsNullOrEmpty(CurrentPet.image) ? "empty" : "")">
+                                    @if (!string.IsNullOrEmpty(CurrentPet.image))
+                                    {
+                                        <img src="@CurrentPet.image" class="pet-photo" />
+                                    }
+                                    else
+                                    {
+                                        <div class="photo-placeholder">
+                                            <span>+</span>
+                                        </div>
+                                    }
+                                </div>
 
-                            <button type="button" class="save-btn" @onclick="SavePet">Сохранить</button>
+                                <div>
+                                    <InputFile id="petFileInput"
+                                               class="d-none"
+                                               accept="image/*"
+                                               OnChange="OnPetImageSelected" />
+
+                                    <label for="petFileInput" class="change-link-btn">
+                                        Изменить
+                                    </label>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="pet-image-column">
-                            <div class="pet-photo-box @(string.IsNullOrEmpty(petImage) ? "empty" : "")">
-                                @if (!string.IsNullOrEmpty(petImage))
-                                {
-                                    <img src="@petImage" class="pet-photo" />
-                                }
-                                else
-                                {
-                                    <div class="photo-placeholder">
-                                        <span>+</span>
-                                    </div>
-                                }
-                            </div>
+                        <div class="pet-actions">
+                            <button type="button" class="save-btn" @onclick="SavePet">Сохранить</button>
+                            <button type="button" class="delete-btn" @onclick="DeletePet">Удалить</button>
+                        </div>
 
-                            <button type="button" class="change-link-btn">Изменить</button>
+                        <button type="button" class="slider-arrow right" @onclick="NextPet" disabled="@isAddMode">
+                            <i class="bi bi-caret-right-fill"></i>
+                        </button>
+                    </div>
+
+                    <button type="button" class="add-pet-btn" @onclick="AddPet">Добавить питомца +</button>
+                }
+            }
+            else if (updateUser.role_id == 1)
+            {
+                <div class="section-title">Панель администратора</div>
+
+                <div class="user-card">
+                    <div class="form-group">
+                        <label>Доступ</label>
+                        <div class="hint-text">У вас есть права администратора.</div>
+                    </div>
+
+                    <button type="button" class="save-btn" @onclick="GoToAdminPanel">
+                        Админ панель
+                    </button>
+                </div>
+            }
+            else if (updateUser.role_id == 2)
+            {
+                <div class="section-title">Панель врача</div>
+
+                <div class="user-card">
+                    <div class="form-group">
+                        <label>Доступ</label>
+                        <div class="hint-text">
+                            Вы можете перейти к записям и оформить запись питомца на прием без оплаты.
                         </div>
                     </div>
 
-                    <button type="button" class="slider-arrow right" @onclick="NextPet" disabled="@isAddMode">
-                        <i class="bi bi-caret-right-fill"></i>
+                    <button type="button" class="save-btn" @onclick="GoToDoctorPanel">
+                        Перейти к записям
                     </button>
                 </div>
-
-                <button type="button" class="add-pet-btn" @onclick="AddPet">Добавить питомца +</button>
             }
-            
+
         </section>
 
         <section class="user-section">
@@ -97,8 +146,15 @@
 
             <div class="user-card">
                 <div class="avatar-block">
-                    <div class="avatar-circle"></div>
-                    <button type="button" class="change-link-btn">Изменить</button>
+                    <img src="@updateUser.avatar" class="avatar-circle" />
+                    <InputFile id="userFileInput"
+                               class="d-none"
+                               accept="image/*"
+                               OnChange="OnProfileImageSelected" />
+
+                    <label for="userFileInput" class="change-link-btn">
+                        Изменить
+                    </label>
                 </div>
 
                 <div class="form-group">
@@ -138,19 +194,19 @@
                     <input class="profile-input" type="password" @bind="updateUser.password" />
                 </div>
 
-                <button type="button" class="save-btn">Сохранить</button>
+                <button type="button" class="save-btn" @onclick="SaveProfile">Сохранить</button>
             </div>
         </section>
 
     </div>
 </div>
 @code{
-    private string? petImage = "https://avatarko.ru/img/kartinka/1/Crazy_Frog.jpg";
-
     [Inject] private UserService userService { get; set; }
 
     [Inject] private UserRequests UserRequests { get; set; }
     [Inject] private PetRequests PetRequests { get; set; }
+    [Inject] private ImageLoader imageLoader { get; set; }
+
 
     private string animateDirection = "";
 
@@ -160,7 +216,6 @@
     private int currentPetIndex = 0;
     private PetModel CurrentPet => userPets[currentPetIndex];
 
-    private PetModel newPet = new PetModel();
     private bool isAddMode = false;
     private bool isEditMode = true;
 
@@ -169,9 +224,24 @@
     protected override async Task OnInitializedAsync()
     {
         updateUser = userService.CurrentUser;
-        var getPetResponse = await PetRequests.GetAllPetsByUser(userService.CurrentUser.id_user);
-        userPets = getPetResponse.list;
+
+        if (updateUser.role_id == 3)
+        {
+            var getPetResponse = await PetRequests.GetAllPetsByUser(userService.CurrentUser.id_user);
+            userPets = getPetResponse.list ?? new List<PetModel>();
+        }
     }
+
+    private void GoToAdminPanel()
+    {
+        Navigation.NavigateTo("/admin");
+    }
+
+    private void GoToDoctorPanel()
+    {
+        Navigation.NavigateTo("/doctor-appointments");
+    }
+
     private void NextPet()
     {
         if (userPets == null || userPets.Count == 0)
@@ -222,13 +292,65 @@
         isAddMode = true;
         isEditMode = false;
 
+        var newPet = new PetModel
+        {
+            date_of_birth = DateOnly.FromDateTime(DateTime.Today)
+        };
+
         userPets.Add(newPet);
         currentPetIndex = userPets.Count - 1;
+        SwitchCard("right");
+    }
+
+    private async Task DeletePet()
+    {
+        var deletePetResponse = await PetRequests.DeletePet(CurrentPet.id_pet);
+        responseMessage = deletePetResponse.message;
+        userPets.RemoveAt(currentPetIndex);
+
+        currentPetIndex --;
+
+        if (currentPetIndex < 0)
+        {
+            currentPetIndex = userPets.Count;
+        }
+        SwitchCard("left");
+    }
+
+    private async Task OnPetImageSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file == null)
+            return;
+
+        var imageUrl = await imageLoader.UploadImage(file);
+
+        if (!string.IsNullOrEmpty(imageUrl))
+        {
+            CurrentPet.image = "http://localhost:5276" + imageUrl;
+            StateHasChanged();
+            responseMessage = "Сохраните, чтобы принять изменения.";
+        }
+    }
+
+    private async Task OnProfileImageSelected(InputFileChangeEventArgs e)
+    {
+        var file = e.File;
+        if (file == null)
+            return;
+
+        var imageUrl = await imageLoader.UploadImage(file);
+
+        if (!string.IsNullOrEmpty(imageUrl))
+        {
+            updateUser.avatar = "http://localhost:5276" + imageUrl;
+            StateHasChanged();
+            responseMessage = "Сохраните, чтобы принять изменения.";
+        }
     }
 
     private async Task SavePet()
     {
-
         if (string.IsNullOrWhiteSpace(CurrentPet.name) ||
             string.IsNullOrWhiteSpace(CurrentPet.breed) ||
             string.IsNullOrWhiteSpace(CurrentPet.species) ||
@@ -236,26 +358,49 @@
         {
             responseMessage = "Заполните все поля!";
             return;
-        }
+        };
+
         if (isEditMode)
         {
             var updatePetResponse = await PetRequests.UpdatePet(CurrentPet);
-            if (updatePetResponse.status)
-                responseMessage = updatePetResponse.message;
-            else 
-                responseMessage = updatePetResponse.message;
+            responseMessage = updatePetResponse.message;
         }
-        if (isAddMode)
+        else if (isAddMode)
         {
             CurrentPet.user_id = userService.CurrentUser.id_user;
             var addPetResponse = await PetRequests.AddPet(CurrentPet);
-            if (addPetResponse.status)
-                responseMessage = addPetResponse.message;
-            else
-                responseMessage = addPetResponse.message;
-        }
+            responseMessage = addPetResponse.message;
 
-        isAddMode = false;
+            if (addPetResponse.status)
+            {
+                isAddMode = false;
+                isEditMode = true;
+            }
+        }
+    }
+
+    private async Task SaveProfile()
+    {
+        if (string.IsNullOrWhiteSpace(updateUser.name) ||
+            string.IsNullOrWhiteSpace(updateUser.surname) ||
+            string.IsNullOrWhiteSpace(updateUser.gender) ||
+            string.IsNullOrWhiteSpace(updateUser.email) ||
+            string.IsNullOrWhiteSpace(updateUser.password) ||
+            string.IsNullOrWhiteSpace(updateUser.phone))
+        {
+            responseMessage = "Заполните все поля!";
+            return;
+        };
+        var updateProfileResponse = await UserRequests.UpdateUser(updateUser);
+        if (updateProfileResponse.status)
+        {
+            responseMessage = updateProfileResponse.message;
+            userService.Noitify();
+        }
+        else
+            responseMessage = updateProfileResponse.message;
+
 
     }
+
 }

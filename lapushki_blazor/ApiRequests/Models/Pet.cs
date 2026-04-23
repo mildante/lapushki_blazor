@@ -10,6 +10,7 @@
             public string species { get; set; }
             public string? description { get; set; }
             public string gender { get; set; }
+            public string? image { get; set; }
             public DateOnly date_of_birth { get; set; }
             public int user_id { get; set; }
         }

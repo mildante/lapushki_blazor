@@ -23,5 +23,13 @@
             public string? PaymentId { get; set; }
             public string? Error { get; set; }
         }
+
+        public class CheckPaymentStatusResponse
+        {
+            public bool status { get; set; }
+            public string paymentStatus { get; set; }
+            public string error { get; set; }
+
+        }
     }
 }

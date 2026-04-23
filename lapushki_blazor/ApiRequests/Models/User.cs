@@ -8,6 +8,13 @@ namespace lapushki_blazor.ApiRequests.Models
         public UserModel CurrentUser { get; set; }
         public bool isAdmin => CurrentUser?.role_id == 1;
         public bool isDoctor => CurrentUser?.role_id == 2;
+        public Action OnAuthStateChanged { get; set; }
+
+        public void Noitify()
+        {
+            OnAuthStateChanged?.Invoke();
+        }
+
 
     }
     public class User
@@ -27,6 +34,7 @@ namespace lapushki_blazor.ApiRequests.Models
             public string phone { get; set; }
             public string password { get; set; }
             public string gender { get; set; }
+            public string? avatar { get; set; }
             public DateOnly date_of_birth { get; set; }
             public int role_id { get; set; }
             public Role role { get; set; }
@@ -35,6 +43,7 @@ namespace lapushki_blazor.ApiRequests.Models
         public class AuthorizeResponse
         {
             public bool status { get; set; }
+            public string token { get; set; }
             public UserModel user { get; set; }
             public string message { get; set; }
 

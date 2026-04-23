@@ -179,12 +179,12 @@ main {
     padding: 8px 6px 4px 6px;
 }
 
-.profile-avatar {
+.avatar-navigation {
     width: 44px;
     height: 44px;
     min-width: 44px;
     border-radius: 50%;
-    background: #F2F2F2;
+    background: #261C6E;
 }
 
 .profile-info {
@@ -216,7 +216,7 @@ main {
 .login-button {
     display: inline-block;
     padding: 10px 16px;
-    background: #2d247c;
+    background: #261C6E;
     color: white;
     border-radius: 12px;
     text-decoration: none;
@@ -715,7 +715,7 @@ main {
 .save-btn,
 .add-pet-btn {
     align-self: center;
-    border: none;
+    border: 2px solid #2d247c;
     border-radius: 999px;
     background: #261C6E;
     color: #FFFFFF;
@@ -726,12 +726,25 @@ main {
     transition: 0.2s ease;
 }
 
+.delete-btn {
+    align-self: center;
+    border-radius: 999px;
+    border: 2px solid #2d247c;
+    background: transparent;
+    color: #261C6E;
+    font-family: 'NonBureau', sans-serif;
+    font-size: 1rem;
+    padding: 10px 26px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
     .save-btn:hover,
-    .add-pet-btn:hover {
+    .add-pet-btn:hover,
+    .delete-btn:hover {
         opacity: 0.92;
     }
 
-.save-btn {
+.save-btn, .delete-btn {
     margin-top: 8px;
 }
 
@@ -1132,7 +1145,7 @@ main {
     .booking-auth-required h3 {
         margin: 0;
         font-size: 24px;
-        color: #2d247c;
+        color: #261C6E;
         font-weight: 600;
     }
 
@@ -1147,7 +1160,7 @@ main {
 .booking-login-btn {
     width: 150px;
     margin-top: 10px;
-    background: #2d247c;
+    background: #261C6E;
     color: white;
     border: none;
     border-radius: 20px;
@@ -1179,7 +1192,7 @@ main {
     text-align: center;
     font-size: 48px;
     font-weight: 800;
-    color: #2d247c;
+    color: #261C6E;
     margin-bottom: 28px;
     line-height: 1.1;
 }
@@ -1316,7 +1329,7 @@ main {
     font-size: 56px;
     font-weight: 800;
     line-height: 1.1;
-    color: #2d247c;
+    color: #261C6E;
 }
 
 .emergency-text {
@@ -1328,7 +1341,7 @@ main {
 }
 
 .emergency-highlight {
-    color: #2d247c;
+    color: #261C6E;
     text-decoration: underline;
     text-decoration-thickness: 2px;
     text-underline-offset: 4px;
@@ -1419,7 +1432,7 @@ main {
     margin: 0 0 20px 0;
     font-size: 32px;
     font-weight: 800;
-    color: #2d247c;
+    color: #261C6E;
 }
 
 .clinic-address,
@@ -1496,4 +1509,148 @@ main {
         font-size: 16px;
         padding: 5px 10px;
     }
+}
+
+/*Admin Panel ==================================================================================================================================*/
+.admin-page {
+    min-height: 100vh;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.admin-panel {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+.admin-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+    flex-wrap: wrap;
+}
+
+.admin-tab {
+    background: #ffffff;
+    border: 2px solid #261C6E;
+    color: #261C6E;
+    border-radius: 20px;
+    padding: 10px 22px;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+    font-family: inherit;
+}
+
+    .admin-tab:hover,
+    .admin-tab.active {
+        background: #261C6E;
+        color: #ffffff;
+    }
+
+.table-shell {
+    border: 3px solid #261C6E;
+    border-radius: 28px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.92);
+}
+
+.lapushki-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+    .lapushki-table thead th {
+        background: #261C6E;
+        color: #ffffff;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 12px 8px;
+        text-align: center;
+        border-right: 3px solid #261C6E;
+    }
+
+        .lapushki-table thead th:first-child {
+            border-top-left-radius: 22px;
+        }
+
+        .lapushki-table thead th:last-child {
+            border-top-right-radius: 22px;
+            border-right: none;
+        }
+
+    .lapushki-table tbody tr {
+        background: rgba(255, 255, 255, 0.72);
+        transition: 0.2s ease;
+    }
+
+        .lapushki-table tbody tr:hover {
+            background: #f4f1ff;
+        }
+
+    .lapushki-table tbody td {
+        color: #261C6E;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 12px 8px;
+        border-top: 3px solid #261C6E;
+        border-right: 3px solid #261C6E;
+        vertical-align: middle;
+        word-break: break-word;
+    }
+
+        .lapushki-table tbody td:last-child {
+            border-right: none;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .lapushki-table tbody td:first-child {
+            text-align: left;
+        }
+
+@media (max-width: 992px) {
+    .table-shell {
+        overflow-x: auto;
+    }
+
+    .lapushki-table {
+        min-width: 900px;
+    }
+
+        .lapushki-table thead th,
+        .lapushki-table tbody td {
+            font-size: 18px;
+        }
+}
+
+@media (max-width: 576px) {
+    .admin-page {
+        padding: 20px 10px;
+    }
+
+    .admin-tab {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .lapushki-table thead th,
+    .lapushki-table tbody td {
+        font-size: 16px;
+        padding: 12px 10px;
+    }
+}
+
+.d-none {
+    display: none;
+}
+
+.pet-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
 }

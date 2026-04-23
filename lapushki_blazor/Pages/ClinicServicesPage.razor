@@ -190,6 +190,8 @@
 
     private TimeOnly selectedTime;
 
+    private string selectedServiceName =>
+        services?.FirstOrDefault(x => x.id_service == selectedServiceId)?.name ?? "Запись к ветеринару";
     private decimal selectedServicePrice =>
         services?.FirstOrDefault(x => x.id_service == selectedServiceId)?.price ?? 0;
 
@@ -289,7 +291,7 @@
         var result = await PaymentService.CreatePayment(new Payments.CreatePaymentRequest
         {
             Amount = amount,
-            Description = "Запись к ветеринару",
+            Description = $"{selectedServiceName}",
             AppointmentId = appointmentId
         });
 

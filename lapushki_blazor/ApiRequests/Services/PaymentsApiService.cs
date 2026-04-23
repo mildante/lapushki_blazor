@@ -19,9 +19,11 @@ namespace lapushki_blazor.ApiRequests.Services
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<CreatePaymentResponse>();
         }
-        public async Task<string?> CheckPaymentStatus(string paymentId)
+        public async Task<CheckPaymentStatusResponse?> CheckPaymentStatusByAppointment(int appointmentId)
         {
-            return await _httpClient.GetStringAsync($"/checkPaymentStatus?paymentId={paymentId}");
+            var response = await _httpClient.GetAsync($"checkPaymentStatusByAppointment?appointmentId={appointmentId}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<CheckPaymentStatusResponse>();
         }
     }
 }

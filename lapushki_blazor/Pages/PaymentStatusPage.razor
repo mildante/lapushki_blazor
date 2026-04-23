@@ -23,25 +23,24 @@ else
     {
         try
         {
-            // 👉 получаем paymentId из URL
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);
             var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
-            var paymentId = query["paymentId"];
 
-            if (string.IsNullOrEmpty(paymentId))
+            var appointmentIdValue = query["appointmentId"];
+
+            if (!int.TryParse(appointmentIdValue, out var appointmentId))
             {
-                statusText = "Не удалось определить платеж ❌";
+                statusText = "Не удалось определить запись ❌";
                 return;
             }
 
-            // 👉 проверяем статус через API
-            var result = await PaymentService.CheckPaymentStatus(paymentId);
+            var result = await PaymentService.CheckPaymentStatusByAppointment(appointmentId);
 
-            if (result != null)
+            if (result != null && result.status)
             {
-                if (result == "Succeeded")
+                if (result.paymentStatus == "Succeeded")
                     statusText = "Оплата прошла успешно ✅";
-                else if (result == "Pending")
+                else if (result.paymentStatus == "Pending")
                     statusText = "Платеж в процессе ⏳";
                 else
                     statusText = "Оплата не выполнена ❌";

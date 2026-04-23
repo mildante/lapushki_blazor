@@ -12,7 +12,8 @@ builder.Services.AddScoped<PaymentsApiService>();
 builder.Services.AddScoped<AppointmentRequests>();
 builder.Services.AddScoped<PetRequests>();
 builder.Services.AddScoped<UserRequests>();
+builder.Services.AddScoped<ImageLoader>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("http://localhost:5276") });
-builder.Services.AddSingleton<UserService>();
+builder.Services.AddScoped<UserService>();
 
 await builder.Build().RunAsync();

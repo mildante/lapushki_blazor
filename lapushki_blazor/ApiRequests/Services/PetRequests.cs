@@ -27,13 +27,13 @@ namespace lapushki_blazor.ApiRequests.Services
         }
         public async Task<UpdatePetResponse> UpdatePet(PetModel petModel)
         {
-            var response = await _httpClient.PostAsJsonAsync("/updatePet", petModel);
+            var response = await _httpClient.PutAsJsonAsync("/updatePet", petModel);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<UpdatePetResponse>();
         }
         public async Task<DeletePetResponse> DeletePet(int pet_id)
         {
-            var response = await _httpClient.PostAsJsonAsync("/deletePet", pet_id);
+            var response = await _httpClient.DeleteAsync($"/deletePet?pet_id={pet_id}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<DeletePetResponse>();
         }

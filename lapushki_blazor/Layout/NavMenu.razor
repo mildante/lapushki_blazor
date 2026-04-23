@@ -76,7 +76,10 @@
         <div class="profile-block">
             @if (isAuthorized)
             {
-                <div class="profile-avatar"></div>
+                <div>
+                    <img src="@currentUser.avatar" class="avatar-navigation" />
+                </div>
+
                 <div class="profile-info">
                     <span class="profile-name">
                         @currentUser.name @currentUser.surname
@@ -99,7 +102,7 @@
 
     private bool isAuthorized => userService.CurrentUser != null;
 
-    private UserModel currentUser;
+    private UserModel? currentUser;
 
     private bool collapseNavMenu = true;
 
@@ -110,8 +113,21 @@
         collapseNavMenu = !collapseNavMenu;
     }
 
-    protected override async Task OnInitializedAsync()
+    protected override Task OnInitializedAsync()
     {
         currentUser = userService.CurrentUser;
+        userService.OnAuthStateChanged += RefreshAuthState;
+        return Task.CompletedTask;
+    }
+
+    private void RefreshAuthState()
+    {
+        currentUser = userService.CurrentUser;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        userService.OnAuthStateChanged -= RefreshAuthState;
     }
 }
