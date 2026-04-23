@@ -1654,3 +1654,17 @@ main {
     justify-content: center;
     gap: 16px;
 }
+
+.logout-btn {
+    background-color: #261C6E;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+    .logout-btn:hover {
+        background-color: #6d63b5;
+    }

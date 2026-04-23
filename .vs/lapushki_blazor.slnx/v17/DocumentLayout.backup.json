@@ -1,0 +1,122 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|c:\\users\\202316\\desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\pages\\adminpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\adminpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|c:\\users\\202316\\desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|c:\\users\\202316\\desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\pages\\clinicservicespage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\clinicservicespage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|c:\\users\\202316\\desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\pages\\authpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\authpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|c:\\users\\202316\\desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|c:\\users\\202316\\desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\lapushki_blazor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\lapushki_blazor.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ClinicServicesPage.razor",
+              "DocumentMoniker": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\ClinicServicesPage.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\ClinicServicesPage.razor",
+              "ToolTip": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\ClinicServicesPage.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\ClinicServicesPage.razor",
+              "ViewState": "AgIAAFoAAAAAAAAAAAAowHYAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T05:27:24.908Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "app.css",
+              "DocumentMoniker": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css",
+              "RelativeDocumentMoniker": "lapushki_blazor\\wwwroot\\css\\app.css",
+              "ToolTip": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css",
+              "RelativeToolTip": "lapushki_blazor\\wwwroot\\css\\app.css",
+              "ViewState": "AgIAAG4GAAAAAAAAAAAAAIUGAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-23T05:29:43.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Profile.razor",
+              "DocumentMoniker": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\Profile.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\Profile.razor",
+              "ToolTip": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\Profile.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\Profile.razor",
+              "ViewState": "AgIAAK0AAAAAAAAAAAAowMIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T05:28:17.363Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AdminPage.razor",
+              "DocumentMoniker": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\AdminPage.razor",
+              "ToolTip": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\AdminPage.razor",
+              "ViewState": "AgIAABkBAAAAAAAAAAAowCMBAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T05:27:54.355Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthPage.razor",
+              "DocumentMoniker": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\AuthPage.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\AuthPage.razor",
+              "ToolTip": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\Pages\\AuthPage.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\AuthPage.razor",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAtwJoAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-23T05:27:25.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "lapushki_blazor",
+              "DocumentMoniker": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\lapushki_blazor.csproj",
+              "RelativeDocumentMoniker": "lapushki_blazor\\lapushki_blazor.csproj",
+              "ToolTip": "C:\\Users\\202316\\Desktop\\project\\blazorr\\lapushki_blazor\\lapushki_blazor\\lapushki_blazor.csproj",
+              "RelativeToolTip": "lapushki_blazor\\lapushki_blazor.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-23T05:17:57.048Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

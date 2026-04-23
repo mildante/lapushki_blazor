@@ -198,6 +198,10 @@
             </div>
         </section>
 
+        <button class="logout-btn" @onclick="Logout">
+            <i class="bi bi-box-arrow-right"></i> Выйти
+        </button>
+
     </div>
 </div>
 @code{
@@ -401,6 +405,14 @@
             responseMessage = updateProfileResponse.message;
 
 
+    }
+
+    private async Task Logout()
+    {
+        // await LocalStorage.RemoveItemAsync("authToken");
+        userService.CurrentUser = null;
+        userService.Noitify();
+        Navigation.NavigateTo("/authPage");
     }
 
 }

@@ -1,6 +1,7 @@
 ﻿@page "/admin"
 @using lapushki_blazor.ApiRequests.Models
 @using lapushki_blazor.ApiRequests.Services
+@using static lapushki_blazor.ApiRequests.Models.ClinicService
 @using static lapushki_blazor.ApiRequests.Models.Doctor
 @using static lapushki_blazor.ApiRequests.Models.Appointment
 @using static lapushki_blazor.ApiRequests.Models.Pet
@@ -52,7 +53,7 @@
                         {
                             @foreach (var user in users)
                             {
-                                <tr>
+                                <tr @ondblclick="() => OpenEditModal(user)">
                                     <td>@user.id_user</td>
                                     <td>@user.name</td>
                                     <td>@user.surname</td>
@@ -97,7 +98,7 @@
                         {
                             @foreach (var doctor in doctors)
                             {
-                                <tr>
+                                <tr @ondblclick="() => OpenEditModal(doctor)">
                                     <td>@doctor.id_doctor</td>
                                     <td>@doctor.user.name</td>
                                     <td>@doctor.user.surname</td>
@@ -143,7 +144,7 @@
                         {
                             @foreach (var pet in pets)
                             {
-                                <tr>
+                                <tr @ondblclick="() => OpenEditModal(pet)">
                                     <td>@pet.id_pet</td>
                                     <td>@pet.name</td>
                                     <td>@pet.breed</td>
@@ -187,7 +188,7 @@
                         {
                             @foreach (var appointment in appointments)
                             {
-                                <tr>
+                                <tr @ondblclick="() => OpenEditModal(appointment)">
                                     <td>@appointment.id</td>
                                     <td>@appointment.doctor_id</td>
                                     <td>@appointment.pet_id</td>
@@ -204,6 +205,184 @@
             </div>
         }
     </div>
+    @if (isFormModalOpen)
+    {
+        <div class="booking-modal-overlay" @onclick="CloseFormModal">
+            <div class="booking-modal" @onclick:stopPropagation="true">
+                <button class="booking-modal-close" @onclick="CloseFormModal">×</button>
+                <h3>Редактирование</h3>
+
+                @switch (currentEditType)
+                {
+                    case "user":
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input class="profile-input" type="text" @bind="editedUser.name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Фамилия</label>
+                            <input class="profile-input" type="text" @bind="editedUser.surname" />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Дата рождения</label>
+                                <input class="profile-input" type="date" @bind="editedUser.date_of_birth" />
+                            </div>
+
+                            <div class="form-group half">
+                                <label>Пол</label>
+                                <input class="profile-input" type="text" @bind="editedUser.gender" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Номер телефона</label>
+                            <input class="profile-input" type="text" @bind="editedUser.phone" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Почта</label>
+                            <input class="profile-input" type="email" @bind="editedUser.email" />
+                        </div>
+                        <button type="button" class="booking-pay-btn" @onclick="SaveUser">Сохранить</button>
+                        break;
+
+                    case "doctor":
+                        <div class="form-group">
+                            <label>Имя</label>
+                            <input class="profile-input" type="text" @bind="editedDoctor.user.name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Фамилия</label>
+                            <input class="profile-input" type="text" @bind="editedDoctor.user.surname" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Специализация</label>
+                            <input class="profile-input" type="text" @bind="editedDoctor.specialization" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Время приема</label>
+                            <input class="profile-input" type="text" @bind="editedDoctor.duration_slot" />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Дата рождения</label>
+                                <input class="profile-input" type="date" @bind="editedDoctor.user.date_of_birth" />
+                            </div>
+
+                            <div class="form-group half">
+                                <label>Пол</label>
+                                <input class="profile-input" type="text" @bind="editedDoctor.user.gender" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Номер телефона</label>
+                            <input class="profile-input" type="text" @bind="editedDoctor.user.phone" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Почта</label>
+                            <input class="profile-input" type="email" @bind="editedDoctor.user.email" />
+                        </div>
+                        <button class="booking-pay-btn" @onclick="SaveDoctor">Сохранить</button>
+                        break;
+
+                    case "pet":
+                        <div class="form-group">
+                            <label>Кличка</label>
+                            <input class="profile-input" type="text" @bind="editedPet.name" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Порода</label>
+                            <input class="profile-input" type="text" @bind="editedPet.breed" />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Вид</label>
+                            <input class="profile-input" type="text" @bind="editedPet.species" />
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Дата рождения</label>
+                                <input class="profile-input" type="date" @bind="editedPet.date_of_birth" />
+                            </div>
+                            <div class="form-group half">
+                                <label>Пол</label>
+                                <input class="profile-input" type="text" @bind="editedPet.gender" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Описание</label>
+                            <input class="profile-input" type="text" @bind="editedPet.description" />
+                        </div>
+
+                        <button class="booking-pay-btn" @onclick="SavePet">Сохранить</button>
+                        break;
+
+                    case "appointment":
+                        <div class="booking-field">
+                            <label>Ветеринарный врач</label>
+                            <select @bind="editedAppointment.doctor_id" disabled>
+                                @foreach (var doctor in doctors)
+                                {
+                                    <option value="@doctor.id_doctor">@doctor.user.name @doctor.user.surname, @doctor.specialization</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="booking-field">
+                            <label>Услуга</label>
+                            <select @bind="editedAppointment.service_id" disabled>
+                                @foreach (var service in services)
+                                {
+                                    <option value="@service.id_service">@service.name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="booking-row">
+                            <div class="booking-field">
+                                <label>Дата</label>
+                                <input type="date" @bind="editedAppointment.date" />
+                            </div>
+
+                            <div class="booking-field">
+                                <label>Доступное время</label>
+                                <select @bind="editedAppointment.time" >
+                                    @foreach (var slot in GetAvailableSlots())
+                                    {
+                                        <option value="@slot">@slot.ToString("HH:mm")</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="booking-field">
+                            <label>Питомец</label>
+                            <select @bind="editedAppointment.pet_id" disabled>
+                                @foreach (var pet in pets)
+                                {
+                                    <option value="@pet.id_pet">@pet.name, @pet.breed, @pet.species, @pet.date_of_birth</option>
+                                }
+                            </select>
+                        </div>
+
+                        <button class="booking-pay-btn" @onclick="SaveAppointment">Сохранить</button>
+                        break;
+
+                }
+            </div>
+        </div>
+    }
 </div>
 
 @code{
@@ -221,6 +400,17 @@
     private List<PetModel> pets { get; set; }
     private List<AppointmentModel> appointments { get; set; }
     private List<DoctorModel> doctors { get; set; }
+    private List<ClinicServiceModel> services { get; set; }
+    private List<AppointmentModel> bookedAppointments { get; set; }
+
+
+    private string currentEditType;
+    private bool isFormModalOpen = false;
+
+    private UserModel editedUser;
+    private DoctorModel editedDoctor;
+    private PetModel editedPet;
+    private AppointmentModel editedAppointment;
 
     protected override async Task OnInitializedAsync()
     {
@@ -237,10 +427,95 @@
 
             var getDoctorResponse = await AppointmentRequests.GetAllDoctors();
             doctors = getDoctorResponse.list;
+
+            var getServicesResponse = await AppointmentRequests.GetAllCLinicServices();
+            services = getServicesResponse.list;
         }
     }
     private void SwitchTab(string tab)
     {
         activeTab = tab;
     }
+
+    private async Task OpenEditModal(UserModel user)
+    {
+        editedUser = user;
+        currentEditType = "user";
+        isFormModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task OpenEditModal(PetModel pet)
+    {
+        editedPet = pet;
+        currentEditType = "pet";
+        isFormModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task OpenEditModal(DoctorModel doctor)
+    {
+        editedDoctor = doctor;
+        currentEditType = "doctor";
+        isFormModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task OpenEditModal(AppointmentModel appointment)
+    {
+        editedAppointment = appointment;
+        currentEditType = "appointment";
+        isFormModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task SaveUser()
+    {
+        var userResponse = await UserRequests.UpdateUser(editedUser);
+    }
+    private async Task SavePet()
+    {
+        var petResponse = await PetRequests.UpdatePet(editedPet);
+
+    }
+    private async Task SaveDoctor()
+    {
+        // var doctorResponse = await AppointmentRequests.UpdateUser(editedUser);
+    }
+    private async Task SaveAppointment()
+    {
+        var appointment = await AppointmentRequests.UpdateAppointment(editedAppointment);
+    }
+
+    private List<TimeOnly> GetAvailableSlots()
+    {
+        var slots = new List<TimeOnly>();
+        if (editedAppointment.doctor_id == null) return slots;
+
+        var current = doctors.Where(x=>x.id_doctor == editedAppointment.doctor_id).Select(x => x.work_start);
+        var duration = doctors.Where(x => x.id_doctor == editedAppointment.doctor_id).Select(x => x.duration_slot);
+        var endTime = doctors.Where(x => x.id_doctor == editedAppointment.doctor_id).Select(x => x.work_end);
+
+        while (current + (duration) <= endTime)
+        {
+            bool isBusy = bookedAppointments.Any(x => x.time == current);
+
+            bool isPast = selectedDate == DateOnly.FromDateTime(DateTime.Today) && current < TimeOnly.FromDateTime(DateTime.Now);
+
+            if (!isBusy && !isPast)
+            {
+                slots.Add(current);
+            }
+
+            current += duration;
+        }
+
+        return slots;
+    }
+
+    private void CloseFormModal()
+    {
+        isFormModalOpen = false;
+    }
+
 }

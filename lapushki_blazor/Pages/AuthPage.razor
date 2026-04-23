@@ -129,12 +129,7 @@
             userService.CurrentUser = userResponse.user;
             responseMessage = "Загрузка...";
             userService.Noitify();
-            if (userService.isAdmin)
-                Navigation.NavigateTo("/admin");
-            else if (userService.isDoctor)
-                Navigation.NavigateTo("/doctor");
-            else
-                Navigation.NavigateTo("/profile");
+            Navigation.NavigateTo("/profile");
         }
         else if (!userResponse.status || userResponse.user == null)
             responseMessage = userResponse.message;
