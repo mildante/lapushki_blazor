@@ -116,6 +116,8 @@
                                 }
                             </select>
                         </div>
+                        <div class="hint-text">@message</div>
+
 
                         <div class="booking-total">
                             <span>К оплате:</span>
@@ -196,6 +198,8 @@
 
     private int createdAppointmentId;
 
+    private string message;
+
     protected override async Task OnInitializedAsync()
     {
         await UserRequests.LoadUserFromToken();
@@ -208,16 +212,8 @@
 
         if (isAuthorized)
         {
-            if (userService.CurrentUser.role_id == 3)
-            {
-                var getPetsResponse = await PetRequests.GetAllPetsByUser(userService.CurrentUser.id_user);
-                pets = getPetsResponse.list;
-            }
-            else
-            {
-                var getPetsResponse = await PetRequests.GetAllPets();
-                pets = getPetsResponse.list;
-            }
+            var getPetsResponse = await PetRequests.GetAllPetsByUser(userService.CurrentUser.id_user);
+            pets = getPetsResponse.list;
         }  
     }
 
@@ -282,6 +278,12 @@
 
     private async Task Pay()
     {
+        if (selectedPetId == 0 || selectedDoctorId == 0 || selectedServiceId == 0 || selectedTime == null)
+        {
+            message = "Заполните все поля!";
+            return;
+        }
+
         createdAppointmentId = await CreateAppointment();
         if (createdAppointmentId == 0)
             return;

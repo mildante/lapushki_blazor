@@ -187,6 +187,7 @@ main {
     min-width: 44px;
     border-radius: 50%;
     background: #261C6E;
+    object-fit:cover;
 }
 
 .profile-info {
@@ -486,10 +487,10 @@ main {
 }
 
 .profile-message {
-    max-width: 900px;
+    width: stretch;
     margin: 0 auto 18px auto;
     padding: 14px 18px;
-    border-radius: 14px;
+    border-radius: 30px;
     background: rgba(38, 28, 110, 0.18);
     border: 1.5px solid #261C6E;
     color: #261C6E;
@@ -514,7 +515,7 @@ main {
     gap: 24px;
     background: #261C6E;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 30px;
     margin-bottom: 15px;
     justify-content: center;
     text-align: center;
@@ -528,7 +529,7 @@ main {
     gap: 24px;
     background: #FFFFFF;
     padding: 20px;
-    border-radius: 15px;
+    border-radius: 30px;
     border: 2px solid #261C6E;
     margin-bottom: 20px;
     justify-content: center;
@@ -620,7 +621,7 @@ profile-card-header {
 
 .pets-card {
     background: #F9F9F9;
-    border: 1.5px solid #7B72B8;
+    border: 1.5px solid #585858;
     border-radius: 22px;
     padding: 30px 30px 20px 30px;
     display: grid;
@@ -708,7 +709,7 @@ profile-card-header {
 .avatar-circle {
     width: 96px;
     height: 96px;
-    border: 2px solid #261C6E;
+    border: 1px solid #261C6E;
     border-radius: 50%;
     background: #f6f3ff;
     margin-bottom: 6px;
@@ -746,7 +747,7 @@ profile-card-header {
 .profile-input {
     width: 100%;
     height: 42px;
-    border: 1.5px solid #7B72B8;
+    border: 1.5px solid #585858;
     border-radius: 999px;
     background: #F9F9F9;
     padding: 0 16px;
@@ -759,7 +760,7 @@ profile-card-header {
 .profile-textarea {
     width: 100%;
     min-height: 82px;
-    border: 1.5px solid #7B72B8;
+    border: 1.5px solid #585858;
     border-radius: 16px;
     background: #F9F9F9;
     padding: 12px 16px;
@@ -1091,7 +1092,7 @@ profile-card-header {
     .booking-field select,
     .booking-field input {
         height: 42px;
-        border: 1.5px solid #8f86cf;
+        border: 1.5px solid #585858;
         border-radius: 20px;
         padding: 0 14px;
         background: white;

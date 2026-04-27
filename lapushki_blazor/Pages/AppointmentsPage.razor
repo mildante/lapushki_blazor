@@ -260,13 +260,13 @@
 
         if (!isDoctor)
         {
-            Pay();
-
+            await Pay();
+            return;
         }
         else
         {
             await AppointmentRequests.AddAppointment(editedAppointment);
-            appointments.Add(editedAppointment);
+            await LoadAllData();    
         }
         
         CloseFormModal();
@@ -319,24 +319,25 @@
     private async Task Pay()
     {
         var createdAppointmentId = await CreateAppointment();
+
         if (createdAppointmentId == 0)
             return;
 
-        decimal amount = editedAppointment.clinic_service.price;
-        int appointmentId = createdAppointmentId;
+        var selectedService = services.FirstOrDefault(x => x.id_service == editedAppointment.service_id);
+
+        if (selectedService == null)
+            return;
 
         var result = await PaymentService.CreatePayment(new Payments.CreatePaymentRequest
         {
-            Amount = amount,
-            Description = $"{editedAppointment.clinic_service.name}",
-            AppointmentId = appointmentId
+            Amount = selectedService.price,
+            Description = selectedService.name,
+            AppointmentId = createdAppointmentId
         });
 
         if (result != null && result.Status == true)
         {
-            string url = result.ConfirmationUrl;
-
-            Navigation.NavigateTo(url, true);
+            Navigation.NavigateTo(result.ConfirmationUrl, true);
         }
     }
 
