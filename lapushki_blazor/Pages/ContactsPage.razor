@@ -1,0 +1,108 @@
+﻿@page "/contacts"
+@using lapushki_blazor.ApiRequests.Services
+
+<PageTitle>Контакты</PageTitle>
+
+<div class="contacts-page">
+
+    <section class="contacts-top-card">
+        <div class="contacts-main-info">
+            <h1>Контакты клиники «Лапушки»</h1>
+            <p>
+                Мы всегда рядом, если вашему питомцу нужна помощь,
+                консультация или запись на приём.
+            </p>
+        </div>
+
+        <div class="contacts-hero-card">
+            <i class="bi bi-telephone-fill"></i>
+            <span>Единый номер</span>
+            <strong>+7 (999) 123-45-67</strong>
+        </div>
+    </section>
+
+    <section class="contacts-grid">
+
+        <div class="contact-card">
+            <div class="contact-icon">
+                <i class="bi bi-geo-alt-fill"></i>
+            </div>
+            <div>
+                <h3>Адрес</h3>
+                <p>г. Казань, ул. Большая Красная, д. 61</p>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-icon">
+                <i class="bi bi-clock-fill"></i>
+            </div>
+            <div>
+                <h3>Режим работы</h3>
+                <p>Пн–Вс: 09:00 – 21:00</p>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-icon">
+                <i class="bi bi-envelope-fill"></i>
+            </div>
+            <div>
+                <h3>Почта</h3>
+                <p>lapushki.clinic@mail.ru</p>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <div class="contact-icon">
+                <i class="bi bi-chat-dots-fill"></i>
+            </div>
+            <div>
+                <h3>Запись</h3>
+                <p>Позвоните нам или запишитесь через сайт</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="contacts-content">
+        <div class="contacts-info">
+            <h2>Как нас найти</h2>
+
+            <p>
+                Клиника находится по адресу ул. Большая Красная, д. 61.
+                Рядом расположена удобная остановка общественного транспорта.
+            </p>
+
+            <div class="transport-box">
+                <h3>Можно доехать на автобусах</h3>
+
+                <div class="bus-list">
+                    <span>10</span>
+                    <span>22</span>
+                    <span>30</span>
+                    <span>35</span>
+                    <span>54</span>
+                    <span>63</span>
+                </div>
+
+                <p class="stop-text">
+                    Остановка: <b>«Улица Большая Красная»</b>
+                </p>
+            </div>
+        </div>
+
+        <div class="clinic-image-card">
+            <img src="/images/clinica.png" alt="Ветеринарная клиника Лапушки" />
+        </div>
+    </section>
+
+</div>
+@code {
+    [Inject] private UserRequests UserRequests { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserRequests.LoadUserFromToken();
+    }
+}

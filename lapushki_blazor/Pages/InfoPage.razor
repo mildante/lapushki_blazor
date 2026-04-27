@@ -1,4 +1,5 @@
 ﻿@page "/useful-info"
+@using lapushki_blazor.ApiRequests.Services
 @inject NavigationManager Navigation
 
 <PageTitle>Полезная информация</PageTitle>
@@ -8,7 +9,12 @@
 
     <div class="info-card">
         <div class="info-card-text">
-            <h2>Подготовка к приему</h2>
+            <div class="info-title">
+                <div class="info-icon">
+                    <i class="bi bi-clipboard2-pulse-fill"></i>
+                </div>
+                <h2>Подготовка к приему</h2>
+            </div>
             <ol>
                 <li>Не кормить животное за 6–8 часов (если планируется анализ или операция)</li>
                 <li>Взять ветеринарный паспорт</li>
@@ -23,7 +29,12 @@
 
     <div class="info-card">
         <div class="info-card-text">
-            <h2>Вакцинация и профилактика</h2>
+            <div class="info-title">
+                <div class="info-icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <h2>Вакцинация и профилактика</h2>
+            </div>
             <ol>
                 <li>Вакцинация обязательна 1 раз в год</li>
                 <li>Перед прививкой обязательно проводить дегельминтизацию</li>
@@ -39,7 +50,12 @@
 
     <div class="info-card">
         <div class="info-card-text">
-            <h2>Когда срочно к врачу</h2>
+            <div class="info-title">
+                <div class="info-icon">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </div>
+                <h2>Когда срочно к врачу</h2>
+            </div>
             <ol>
                 <li>Отказ от еды более суток</li>
                 <li>Вялость, апатия</li>
@@ -56,6 +72,12 @@
     </div>
 </div>
 @code {
+    [Inject] private UserRequests UserRequests { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserRequests.LoadUserFromToken();
+    }
 
     private void GoToEmergency()
     {

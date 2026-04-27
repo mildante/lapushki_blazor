@@ -16,11 +16,15 @@ else
 }
 
 @code {
+    [Inject] private UserRequests UserRequests { get; set; }
+
     private bool isLoading = true;
     private string statusText = "";
 
     protected override async Task OnInitializedAsync()
     {
+        await UserRequests.LoadUserFromToken();
+
         try
         {
             var uri = Navigation.ToAbsoluteUri(Navigation.Uri);

@@ -3,24 +3,28 @@
   "WorkspaceRootPath": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\Profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lapushki_blazor\\Pages\\Profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|d:\\study\\ktits\\kursovaya\\lapushki_blazor\\lapushki_blazor\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\profile.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lapushki_blazor\\Pages\\AdminPage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|d:\\study\\ktits\\kursovaya\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lapushki_blazor\\wwwroot\\css\\app.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|d:\\study\\ktits\\kursovaya\\lapushki_blazor\\lapushki_blazor\\pages\\specialistspage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\specialistspage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\ApiRequests\\Services\\PetRequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lapushki_blazor\\ApiRequests\\Services\\PetRequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|d:\\study\\ktits\\kursovaya\\lapushki_blazor\\lapushki_blazor\\pages\\adminpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\adminpage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\ClinicServicesPage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:lapushki_blazor\\Pages\\ClinicServicesPage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|d:\\study\\ktits\\kursovaya\\lapushki_blazor\\lapushki_blazor\\apirequests\\services\\userrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\apirequests\\services\\userrequests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|d:\\study\\ktits\\kursovaya\\lapushki_blazor\\lapushki_blazor\\pages\\appointmentspage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{D3178B98-4559-8D12-65EA-04BD36F328E2}|lapushki_blazor\\lapushki_blazor.csproj|solutionrelative:lapushki_blazor\\pages\\appointmentspage.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,28 +38,27 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "AdminPage.razor",
-              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor",
-              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\AdminPage.razor",
-              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor",
-              "RelativeToolTip": "lapushki_blazor\\Pages\\AdminPage.razor",
-              "ViewState": "AgIAAM8AAAAAAAAAAAAAAOoAAAAYAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "SpecialistsPage.razor",
+              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\SpecialistsPage.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\SpecialistsPage.razor",
+              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\SpecialistsPage.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\SpecialistsPage.razor",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-20T05:39:49.583Z",
-              "IsPinned": true
+              "WhenOpened": "2026-04-26T16:16:48.259Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "app.css",
-              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css",
-              "RelativeDocumentMoniker": "lapushki_blazor\\wwwroot\\css\\app.css",
-              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css",
-              "RelativeToolTip": "lapushki_blazor\\wwwroot\\css\\app.css",
-              "ViewState": "AgIAAL8CAAAAAAAAAAAtwM0CAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-04-22T08:55:22.734Z"
+              "DocumentIndex": 4,
+              "Title": "UserRequests.cs",
+              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\ApiRequests\\Services\\UserRequests.cs",
+              "RelativeDocumentMoniker": "lapushki_blazor\\ApiRequests\\Services\\UserRequests.cs",
+              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\ApiRequests\\Services\\UserRequests.cs",
+              "RelativeToolTip": "lapushki_blazor\\ApiRequests\\Services\\UserRequests.cs",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAgwGEAAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T16:03:39.782Z"
             },
             {
               "$type": "Document",
@@ -65,32 +68,47 @@
               "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\Profile.razor",
               "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\Profile.razor",
               "RelativeToolTip": "lapushki_blazor\\Pages\\Profile.razor",
+              "ViewState": "AgIAAJQBAAAAAAAAAAAAwNMBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-07T10:13:42.238Z"
+              "WhenOpened": "2026-04-26T14:05:32.374Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "app.css",
+              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css",
+              "RelativeDocumentMoniker": "lapushki_blazor\\wwwroot\\css\\app.css",
+              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\wwwroot\\css\\app.css",
+              "RelativeToolTip": "lapushki_blazor\\wwwroot\\css\\app.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-26T14:13:24.573Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AppointmentsPage.razor",
+              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AppointmentsPage.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\AppointmentsPage.razor",
+              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AppointmentsPage.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\AppointmentsPage.razor",
+              "ViewState": "AgIAAAoBAAAAAAAAAAAcwBQBAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-24T05:22:32.948Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "PetRequests.cs",
-              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\ApiRequests\\Services\\PetRequests.cs",
-              "RelativeDocumentMoniker": "lapushki_blazor\\ApiRequests\\Services\\PetRequests.cs",
-              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\ApiRequests\\Services\\PetRequests.cs",
-              "RelativeToolTip": "lapushki_blazor\\ApiRequests\\Services\\PetRequests.cs",
-              "ViewState": "AgIAAAoAAAAAAAAAAAAQwCMAAABWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-22T05:17:25.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "ClinicServicesPage.razor",
-              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\ClinicServicesPage.razor",
-              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\ClinicServicesPage.razor",
-              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\ClinicServicesPage.razor",
-              "RelativeToolTip": "lapushki_blazor\\Pages\\ClinicServicesPage.razor",
-              "ViewState": "AgIAABsAAAAAAAAAAAAAACUBAAAwAAAAAAAAAA==",
+              "Title": "AdminPage.razor",
+              "DocumentMoniker": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor",
+              "RelativeDocumentMoniker": "lapushki_blazor\\Pages\\AdminPage.razor",
+              "ToolTip": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\Pages\\AdminPage.razor",
+              "RelativeToolTip": "lapushki_blazor\\Pages\\AdminPage.razor",
+              "ViewState": "AgIAAI0CAAAAAAAAAAAcwJ4CAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-04-16T09:02:27.885Z"
+              "WhenOpened": "2026-04-24T07:24:55.614Z"
             }
           ]
         }

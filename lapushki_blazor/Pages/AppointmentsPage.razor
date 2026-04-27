@@ -1,0 +1,362 @@
+﻿@page "/appointmentsPage"
+@using lapushki_blazor.ApiRequests.Models
+@using lapushki_blazor.ApiRequests.Services
+@using static lapushki_blazor.ApiRequests.Models.ClinicService
+@using static lapushki_blazor.ApiRequests.Models.Doctor
+@using static lapushki_blazor.ApiRequests.Models.Appointment
+@using static lapushki_blazor.ApiRequests.Models.Pet
+@using static lapushki_blazor.ApiRequests.Models.User
+
+@inject NavigationManager Navigation
+
+<PageTitle>Записи</PageTitle>
+
+<div class="admin-page">
+    <div class="admin-panel">
+        <button class="admin-tab">
+            Записи
+        </button>
+
+        <div class="admin-actions">
+            <button class="booking-pay-btn" @onclick="OpenCreateModal">
+                Сделать новую запись
+            </button>
+        </div>
+
+        <div class="table-shell">
+            <table class="lapushki-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Доктор</th>
+                        <th>Питомец</th>
+                        <th>Услуга</th>
+                        <th>Дата</th>
+                        <th>Время</th>
+                        <th>Статус</th>
+                        <th>Платёж</th>
+                        <th>Отмена</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (appointments == null || appointments.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="9" class="empty-cell">Нет данных</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var appointment in appointments)
+                        {
+                            <tr>
+                                <td>@appointment.id</td>
+                                <td>@appointment.doctor.user.name @appointment.doctor.user.surname, @appointment.doctor.specialization</td>
+                                <td>@appointment.pet.name, @appointment.pet.breed, @appointment.pet.species, @appointment.pet.date_of_birth </td>
+                                <td>@appointment.clinic_service.name</td>
+                                <td>@appointment.date</td>
+                                <td>@appointment.time</td>
+                                <td>@appointment.status</td>
+                                <td>@appointment.payment_id</td>
+                                <td>
+                                    <button class="table-delete-btn" @onclick="@(async () => await DeleteAppointment(appointment.id))">
+                                        Отменить запись
+                                    </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @if (isFormModalOpen)
+    {
+        <div class="booking-modal-overlay" @onclick="CloseFormModal">
+            <div class="booking-modal" @onclick:stopPropagation="true">
+                <button class="booking-modal-close" @onclick="CloseFormModal">×</button>
+                <h3>Запись</h3>
+
+                <div class="booking-field">
+                    <label>Ветеринарный врач</label>
+                    <select @bind="editedAppointment.doctor_id">
+                        @foreach (var doctor in doctors)
+                        {
+                            <option value="@doctor.id_doctor">@doctor.user.name @doctor.user.surname, @doctor.specialization</option>
+                        }
+                    </select>
+                </div>
+                <div class="booking-field">
+                    <label>Услуга</label>
+                    <select @bind="editedAppointment.service_id">
+                        @foreach (var service in services)
+                        {
+                            <option value="@service.id_service">@service.name</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="booking-row">
+                    <div class="booking-field">
+                        <label>Дата</label>
+                        <input type="date" @bind="editedAppointment.date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    </div>
+
+                    <div class="booking-field">
+                        <label>Доступное время</label>
+                        <select @bind="editedAppointment.time">
+                            @foreach (var slot in GetAvailableSlots())
+                            {
+                                <option value="@slot">@slot.ToString("HH:mm")</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="booking-field">
+                    <label>Питомец</label>
+                    <select @bind="editedAppointment.pet_id">
+                        @foreach (var pet in pets)
+                        {
+                            <option value="@pet.id_pet">@pet.name, @pet.breed, @pet.species, @pet.date_of_birth</option>
+                        }
+                    </select>
+                </div>
+
+                <button class="booking-pay-btn" @onclick="SaveAppointment">@(isDoctor ? "Записать" : "Оплатить")</button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Inject] private UserService userService { get; set; }
+
+    [Inject] private UserRequests UserRequests { get; set; }
+    [Inject] private PetRequests PetRequests { get; set; }
+    [Inject] private AppointmentRequests AppointmentRequests { get; set; }
+    [Inject] private PaymentsApiService PaymentService { get; set; }
+
+
+    private bool isDoctor => userService.isDoctor;
+    private bool isFormModalOpen = false;
+
+    private List<UserModel> users { get; set; }
+    private List<PetModel> pets { get; set; }
+    private List<AppointmentModel> appointments { get; set; }
+    private List<DoctorModel> doctors { get; set; }
+    private List<ClinicServiceModel> services { get; set; }
+    private List<AppointmentModel> bookedAppointments { get; set; }
+
+    private string currentEditType;
+
+    private UserModel editedUser;
+    private DoctorModel editedDoctor;
+    private PetModel editedPet;
+    private AppointmentModel editedAppointment;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserRequests.LoadUserFromToken();
+
+        if (isDoctor)
+        {
+            await LoadAllData();
+        }
+        else
+        {
+            await LoadUserData();
+        }
+    }
+
+    private async Task LoadAllData()
+    {
+        var getPetResponse = await PetRequests.GetAllPets();
+        pets = getPetResponse?.list ?? new();
+
+        var getUserResponse = await UserRequests.GetAllUser();
+        users = getUserResponse?.list ?? new();
+
+        var getAppointmentResponse = await AppointmentRequests.GetAllAppointments();
+        appointments = getAppointmentResponse?.list ?? new();
+
+        var getDoctorResponse = await AppointmentRequests.GetAllDoctors();
+        doctors = getDoctorResponse?.list.Where(x=>x.is_active == true).ToList() ?? new();
+
+        var getServicesResponse = await AppointmentRequests.GetAllCLinicServices();
+        services = getServicesResponse?.list ?? new();
+    }
+
+    private async Task LoadUserData()
+    {
+        var getPetResponse = await PetRequests.GetAllPetsByUser(userService.CurrentUser.id_user);
+        pets = getPetResponse?.list ?? new();
+
+        var getAppointmentResponse = await AppointmentRequests.GetAllAppointmentsByUser(userService.CurrentUser.id_user);
+        appointments = getAppointmentResponse?.list ?? new();
+
+        var getDoctorResponse = await AppointmentRequests.GetAllDoctors();
+        doctors = getDoctorResponse?.list ?? new();
+
+        var getServicesResponse = await AppointmentRequests.GetAllCLinicServices();
+        services = getServicesResponse?.list ?? new();
+    }
+
+
+    private async Task OpenCreateModal()
+    {
+        var defaultDoctorId = 0;
+
+        if (isDoctor)
+        {
+            var currentDoctor = doctors.FirstOrDefault(x => x.id_user == userService.CurrentUser.id_user);
+            if (currentDoctor != null )
+            {
+                defaultDoctorId = currentDoctor.id_doctor;
+
+                var getBookedAppointment = await AppointmentRequests.GetAllAppointmentsByDoctor(defaultDoctorId);
+                bookedAppointments = getBookedAppointment?.list ?? new();
+            }
+            else
+            {
+                bookedAppointments = new();
+            }
+        }
+        else
+        {
+            if (doctors.Any())
+            {
+                defaultDoctorId = doctors.First().id_doctor;
+
+                var getBookedAppointment = await AppointmentRequests.GetAllAppointmentsByDoctor(defaultDoctorId);
+                bookedAppointments = getBookedAppointment?.list ?? new();
+            }
+            else
+            {
+                bookedAppointments = new();
+            }
+        }
+
+        editedAppointment = new AppointmentModel
+        {
+            date = DateOnly.FromDateTime(DateTime.Today),
+            doctor_id = defaultDoctorId,
+            pet_id = pets.Any() ? pets.First().id_pet : 0,
+            service_id = services.Any() ? services.First().id_service : 0
+        };
+
+        isFormModalOpen = true;
+        StateHasChanged();
+    }
+
+    private async Task SaveAppointment()
+    {
+
+        if (editedAppointment.doctor_id != 0)
+        {
+            var getBookedAppointment = await AppointmentRequests.GetAllAppointmentsByDoctor(editedAppointment.doctor_id);
+            bookedAppointments = getBookedAppointment?.list ?? new();
+        }
+
+        if (!isDoctor)
+        {
+            Pay();
+
+        }
+        else
+        {
+            await AppointmentRequests.AddAppointment(editedAppointment);
+            appointments.Add(editedAppointment);
+        }
+        
+        CloseFormModal();
+    }
+
+    private async Task DeleteAppointment(int appointmentId)
+    {
+        await AppointmentRequests.DeleteAppointment(appointmentId);
+        if (isDoctor)
+        {
+            await LoadAllData();
+        }
+        else
+        {
+            await LoadUserData();
+        }
+    }
+
+    private List<TimeOnly> GetAvailableSlots()
+    {
+        var slots = new List<TimeOnly>();
+        if (editedAppointment.doctor_id == null) return slots;
+
+        var current = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).work_start;
+        var duration = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).duration_slot;
+        var endTime = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).work_end;
+
+        while (current < endTime)
+        {
+            bool isBusy = bookedAppointments.Any(x => x.time == current);
+
+            bool isPast = editedAppointment.date == DateOnly.FromDateTime(DateTime.Today) && current < TimeOnly.FromDateTime(DateTime.Now);
+
+            if (!isBusy && !isPast)
+            {
+                slots.Add(current);
+            }
+
+            current = current.AddMinutes(duration);
+        }
+
+        return slots;
+    }
+
+    private void CloseFormModal()
+    {
+        isFormModalOpen = false;
+    }
+
+    private async Task Pay()
+    {
+        var createdAppointmentId = await CreateAppointment();
+        if (createdAppointmentId == 0)
+            return;
+
+        decimal amount = editedAppointment.clinic_service.price;
+        int appointmentId = createdAppointmentId;
+
+        var result = await PaymentService.CreatePayment(new Payments.CreatePaymentRequest
+        {
+            Amount = amount,
+            Description = $"{editedAppointment.clinic_service.name}",
+            AppointmentId = appointmentId
+        });
+
+        if (result != null && result.Status == true)
+        {
+            string url = result.ConfirmationUrl;
+
+            Navigation.NavigateTo(url, true);
+        }
+    }
+
+    private async Task<int> CreateAppointment()
+    {
+        var response = await AppointmentRequests.AddAppointment(new AppointmentModel
+        {
+            doctor_id = editedAppointment.doctor_id,
+            service_id = editedAppointment.service_id,
+            pet_id = editedAppointment.pet_id,
+            date = editedAppointment.date,
+            time = editedAppointment.time
+        });
+
+        if (response != null && response.status)
+        {
+            return response.newAppointment.id;
+        }
+
+        return 0;
+    }
+
+}

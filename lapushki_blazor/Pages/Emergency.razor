@@ -1,4 +1,5 @@
 ﻿@page "/emergency"
+@using lapushki_blazor.ApiRequests.Services
 
 <PageTitle>Экстренная помощь</PageTitle>
 
@@ -59,3 +60,12 @@
         </section>
     </section>
 </div>
+
+@code {
+    [Inject] private UserRequests UserRequests { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserRequests.LoadUserFromToken();
+    }
+}

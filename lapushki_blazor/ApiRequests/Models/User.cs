@@ -5,7 +5,9 @@ namespace lapushki_blazor.ApiRequests.Models
 {
     public class UserService
     {
-        public UserModel CurrentUser { get; set; }
+        public UserModel? CurrentUser { get; set; }
+
+        public bool IsAuthorized => CurrentUser != null;
         public bool isAdmin => CurrentUser?.role_id == 1;
         public bool isDoctor => CurrentUser?.role_id == 2;
         public Action OnAuthStateChanged { get; set; }

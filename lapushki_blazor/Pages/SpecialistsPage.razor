@@ -1,0 +1,72 @@
+﻿@page "/specialists"
+@using lapushki_blazor.ApiRequests.Services
+
+<PageTitle>Специалисты</PageTitle>
+
+<div class="specialists-page">
+
+    <section class="specialists-hero">
+        <h1>Наши специалисты</h1>
+        <p>
+            В нашей клинике работают внимательные ветеринарные врачи,
+            которые с заботой относятся к каждому питомцу.
+        </p>
+    </section>
+
+    <section class="specialists-grid">
+
+        <div class="specialist-card">
+            <div class="specialist-photo">
+                <img src="/images/doctor-anna.png" alt="Ковалева Анна Сергеевна" />
+            </div>
+
+            <h3>Ковалева Анна Сергеевна</h3>
+            <span>Главный ветеринарный врач, терапевт</span>
+
+            <p>
+                Диагностика, лечение хронических заболеваний и профилактика.
+            </p>
+
+        </div>
+
+        <div class="specialist-card">
+
+            <div class="specialist-photo">
+                <img src="/images/doctor-dmitry.png" alt="Иванов Дмитрий Андреевич" />
+            </div>
+
+            <h3>Иванов Дмитрий Андреевич</h3>
+            <span>Ветеринарный врач-хирург</span>
+
+            <p>
+                Хирургия, послеоперационное наблюдение и экстренная помощь.
+            </p>
+        </div>
+
+        <div class="specialist-card">
+
+            <div class="specialist-photo">
+                <img src="/images/doctor-helen.png" alt="Смирнова Елена Викторовна" />
+            </div>
+
+            <h3>Смирнова Елена Викторовна</h3>
+            <span>Ветеринарный врач-дерматолог</span>
+
+            <p>
+                Кожные заболевания, аллергии и уход за шерстью питомца.
+            </p>
+        </div>
+
+    </section>
+
+</div>
+
+@code {
+
+    [Inject] private UserRequests UserRequests { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserRequests.LoadUserFromToken();
+    }
+}

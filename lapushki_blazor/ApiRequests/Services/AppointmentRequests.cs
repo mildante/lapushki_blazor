@@ -2,7 +2,6 @@
 using static lapushki_blazor.ApiRequests.Models.Appointment;
 using static lapushki_blazor.ApiRequests.Models.ClinicService;
 using static lapushki_blazor.ApiRequests.Models.Doctor;
-using static lapushki_blazor.ApiRequests.Models.DoctorService;
 using static lapushki_blazor.ApiRequests.Models.User;
 
 namespace lapushki_blazor.ApiRequests.Services
@@ -21,10 +20,6 @@ namespace lapushki_blazor.ApiRequests.Services
         public async Task<ClinicServiceListResponse> GetAllCLinicServices()
         {
             return await _httpClient.GetFromJsonAsync<ClinicServiceListResponse>("/getAllServices");
-        }
-        public async Task<DoctorServiceListResponse> GetAllDoctorServices()
-        {
-            return await _httpClient.GetFromJsonAsync<DoctorServiceListResponse>("/getAllDoctorServices");
         }
         public async Task<AppointmentListResponse> GetAllAppointments()
         {
@@ -52,9 +47,27 @@ namespace lapushki_blazor.ApiRequests.Services
         }
         public async Task<DeleteAppointmentResponse> DeleteAppointment(int appointment_id)
         {
-            var response = await _httpClient.DeleteAsync($"/deleteAppointment/{appointment_id}");
+            var response = await _httpClient.DeleteAsync($"/deleteAppointment?appointmentId={appointment_id}");
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<DeleteAppointmentResponse>();
+        }
+        public async Task<CreateDoctorResponse> CreateDoctor(CreateDoctorRequest doctorModel)
+        {
+            var response = await _httpClient.PostAsJsonAsync("/addDoctor", doctorModel);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<CreateDoctorResponse>();
+        }
+        public async Task<UpdateDoctorResponse> UpdateDoctor(DoctorModel doctorModel)
+        {
+            var response = await _httpClient.PutAsJsonAsync("/updateDoctor", doctorModel);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<UpdateDoctorResponse>();
+        }
+        public async Task<DeleteDoctorResponse> DeleteDoctor(int doctor_id)
+        {
+            var response = await _httpClient.DeleteAsync($"/deleteDoctor?doctor_id={doctor_id}");
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadFromJsonAsync<DeleteDoctorResponse>();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using static lapushki_blazor.ApiRequests.Models.Doctor;
+﻿using static lapushki_blazor.ApiRequests.Models.ClinicService;
+using static lapushki_blazor.ApiRequests.Models.Doctor;
+using static lapushki_blazor.ApiRequests.Models.Pet;
 
 namespace lapushki_blazor.ApiRequests.Models
 {
@@ -8,8 +10,11 @@ namespace lapushki_blazor.ApiRequests.Models
         {
             public int id { get; set; }
             public int doctor_id { get; set; }
+            public DoctorModel doctor { get; set; }
             public int service_id { get; set; }
+            public ClinicServiceModel clinic_service { get; set; }
             public int pet_id { get; set; }
+            public PetModel pet { get; set; }
             public DateOnly date { get; set; }
             public TimeOnly time { get; set; }
             public string status { get; set; }

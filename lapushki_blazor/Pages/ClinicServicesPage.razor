@@ -6,7 +6,6 @@
 @using lapushki_blazor.ApiRequests.Services
 @using static lapushki_blazor.ApiRequests.Models.Appointment
 @using static lapushki_blazor.ApiRequests.Models.Pet
-@using static lapushki_blazor.ApiRequests.Models.DoctorService
 @using static lapushki_blazor.ApiRequests.Models.Doctor
 @using static lapushki_blazor.ApiRequests.Models.ClinicService
 
@@ -94,7 +93,7 @@
                         <div class="booking-row">
                             <div class="booking-field">
                                 <label>Дата</label>
-                                <input type="date" @bind="selectedDate" />
+                                <input type="date" @bind="selectedDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                             </div>
 
                             <div class="booking-field">
@@ -151,13 +150,13 @@
 @code {
     [Inject] private AppointmentRequests AppointmentRequests { get; set; }
     [Inject] private PetRequests PetRequests { get; set; }
+    [Inject] private UserRequests UserRequests { get; set; }
     [Inject] private PaymentsApiService PaymentService { get; set; }
     [Inject] private UserService userService { get; set; }
 
     private bool isAuthorized => userService.CurrentUser != null;
 
     private List<DoctorModel> doctors;
-    private List<DoctorServiceModel> doctorServices;
     private List<ClinicServiceModel> services;
     private List<PetModel> pets;
     private List<AppointmentModel> bookedAppointments;
@@ -199,11 +198,13 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await UserRequests.LoadUserFromToken();
+
         var getServicesResponse = await AppointmentRequests.GetAllCLinicServices();
         services = getServicesResponse.list;
 
         var getDoctorsResponse = await AppointmentRequests.GetAllDoctors();
-        doctors = getDoctorsResponse.list;
+        doctors = getDoctorsResponse.list.Where(x=>x.is_active == true).ToList();
 
         if (isAuthorized)
         {

@@ -26,6 +26,15 @@
             </button>
         </div>
 
+        @if (activeTab != "appointments")
+        {
+            <div class="admin-actions">
+                <button class="booking-pay-btn" @onclick="OpenCreateModal">
+                    Создать
+                </button>
+            </div>
+        }
+
         @if (activeTab == "users")
         {
             <div class="table-shell">
@@ -40,6 +49,7 @@
                             <th>Пол</th>
                             <th>Дата рождения</th>
                             <th>Аватар</th>
+                            <th>Удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,6 +72,11 @@
                                     <td>@user.gender</td>
                                     <td>@user.date_of_birth</td>
                                     <td>@user.avatar</td>
+                                    <td>
+                                        <button class="table-delete-btn" @onclick="@(async () => await DeleteUser(user.id_user))">
+                                            Удалить
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -85,6 +100,7 @@
                             <th>Конец</th>
                             <th>Слот</th>
                             <th>Активен</th>
+                            <th>Удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,6 +125,11 @@
                                     <td>@doctor.work_end</td>
                                     <td>@doctor.duration_slot</td>
                                     <td>@doctor.is_active</td>
+                                    <td>
+                                        <button class="table-delete-btn" @onclick="@(async () => await DeleteDoctor(doctor.id_doctor))">
+                                            Удалить
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -131,6 +152,7 @@
                             <th>Владелец</th>
                             <th>Описание</th>
                             <th>Фото</th>
+                            <th>Удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -154,6 +176,11 @@
                                     <td>@pet.user_id</td>
                                     <td>@pet.description</td>
                                     <td>@pet.image</td>
+                                    <td>
+                                        <button class="table-delete-btn" @onclick="@(async () => await DeletePet(pet.id_pet))">
+                                            Удалить
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -175,6 +202,7 @@
                             <th>Время</th>
                             <th>Статус</th>
                             <th>Платёж</th>
+                            <th>Удалить</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -197,6 +225,11 @@
                                     <td>@appointment.time</td>
                                     <td>@appointment.status</td>
                                     <td>@appointment.payment_id</td>
+                                    <td>
+                                        <button class="table-delete-btn" @onclick="@(async () => await DeleteAppointment(appointment.id))">
+                                            Удалить
+                                        </button>
+                                    </td>
                                 </tr>
                             }
                         }
@@ -210,7 +243,7 @@
         <div class="booking-modal-overlay" @onclick="CloseFormModal">
             <div class="booking-modal" @onclick:stopPropagation="true">
                 <button class="booking-modal-close" @onclick="CloseFormModal">×</button>
-                <h3>Редактирование</h3>
+                <h3>@(isCreateMode ? "Создание" : "Редактирование")</h3>
 
                 @switch (currentEditType)
                 {
@@ -265,6 +298,18 @@
                             <input class="profile-input" type="text" @bind="editedDoctor.specialization" />
                         </div>
 
+                        <div class="form-row">
+                            <div class="form-group half">
+                                <label>Начало дня</label>
+                                <input class="profile-input" type="text" @bind="editedDoctor.work_start" />
+                            </div>
+
+                            <div class="form-group half">
+                                <label>Конец дня</label>
+                                <input class="profile-input" type="text" @bind="editedDoctor.work_end" />
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Время приема</label>
                             <input class="profile-input" type="text" @bind="editedDoctor.duration_slot" />
@@ -283,14 +328,22 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Номер телефона</label>
-                            <input class="profile-input" type="text" @bind="editedDoctor.user.phone" />
-                        </div>
-
-                        <div class="form-group">
                             <label>Почта</label>
                             <input class="profile-input" type="email" @bind="editedDoctor.user.email" />
                         </div>
+
+                        <div class="form-row phone-active-row">
+                            <div class="form-group phone-field">
+                                <label>Номер телефона</label>
+                                <input class="profile-input" type="text" @bind="editedDoctor.user.phone" />
+                            </div>
+
+                            <label class="doctor-active-checkbox">
+                                <input type="checkbox" @bind="editedDoctor.is_active" />
+                                <span>Активен</span>
+                            </label>
+                        </div>
+
                         <button class="booking-pay-btn" @onclick="SaveDoctor">Сохранить</button>
                         break;
 
@@ -352,7 +405,7 @@
                         <div class="booking-row">
                             <div class="booking-field">
                                 <label>Дата</label>
-                                <input type="date" @bind="editedAppointment.date" />
+                                <input type="date" @bind="editedAppointment.date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                             </div>
 
                             <div class="booking-field">
@@ -387,14 +440,15 @@
 
 @code{
     [Inject] private UserService userService { get; set; }
-
-    private string activeTab = "users";
-
-    private bool isAdmin => userService.CurrentUser.role_id == 1;
-
     [Inject] private UserRequests UserRequests { get; set; }
     [Inject] private PetRequests PetRequests { get; set; }
     [Inject] private AppointmentRequests AppointmentRequests { get; set; }
+
+    private string activeTab = "users";
+
+    private bool isAdmin => userService.isAdmin;
+    private bool isFormModalOpen = false;
+    private bool isCreateMode = false;
 
     private List<UserModel> users { get; set; }
     private List<PetModel> pets { get; set; }
@@ -403,9 +457,7 @@
     private List<ClinicServiceModel> services { get; set; }
     private List<AppointmentModel> bookedAppointments { get; set; }
 
-
     private string currentEditType;
-    private bool isFormModalOpen = false;
 
     private UserModel editedUser;
     private DoctorModel editedDoctor;
@@ -414,32 +466,93 @@
 
     protected override async Task OnInitializedAsync()
     {
+        await UserRequests.LoadUserFromToken();
+
         if (isAdmin)
         {
-            var getPetResponse = await PetRequests.GetAllPets();
-            pets = getPetResponse.list;
-
-            var getUserResponse = await UserRequests.GetAllUser();
-            users = getUserResponse.list;
-
-            var getAppointmentResponse = await AppointmentRequests.GetAllAppointments();
-            appointments = getAppointmentResponse.list;
-
-            var getDoctorResponse = await AppointmentRequests.GetAllDoctors();
-            doctors = getDoctorResponse.list;
-
-            var getServicesResponse = await AppointmentRequests.GetAllCLinicServices();
-            services = getServicesResponse.list;
+            await LoadAllData();
         }
     }
+
+    private async Task LoadAllData()
+    {
+        var getPetResponse = await PetRequests.GetAllPets();
+        pets = getPetResponse?.list ?? new();
+
+        var getUserResponse = await UserRequests.GetAllUser();
+        users = getUserResponse?.list ?? new();
+
+        var getAppointmentResponse = await AppointmentRequests.GetAllAppointments();
+        appointments = getAppointmentResponse?.list ?? new();
+
+        var getDoctorResponse = await AppointmentRequests.GetAllDoctors();
+        doctors = getDoctorResponse?.list ?? new();
+
+        var getServicesResponse = await AppointmentRequests.GetAllCLinicServices();
+        services = getServicesResponse?.list ?? new();
+    }
+
     private void SwitchTab(string tab)
     {
         activeTab = tab;
     }
 
+    private async Task OpenCreateModal()
+    {
+        isCreateMode = true;
+
+        switch (activeTab)
+        {
+            case "users":
+                currentEditType = "user";
+                editedUser = new UserModel
+                {
+                    date_of_birth = DateOnly.FromDateTime(DateTime.Today),
+                    password = "123",
+                };
+                break;
+            case "doctors":
+                currentEditType = "doctor";
+                editedDoctor = new DoctorModel
+                {
+                    user = new UserModel
+                    {
+                        date_of_birth = DateOnly.FromDateTime(DateTime.Today),
+                        password = "123",
+                    },
+                    work_start = new TimeOnly(9, 0),
+                    work_end = new TimeOnly(15, 0),
+                    duration_slot = 25,
+                    is_active = true
+                };
+                break;
+            case "appointments":
+                currentEditType = "appointment";
+                editedAppointment = new AppointmentModel
+                {
+                    date = DateOnly.FromDateTime(DateTime.Today)
+                };
+
+                if (doctors.Any())
+                    editedAppointment.doctor_id = doctors.First().id_doctor;
+
+                if (pets.Any())
+                    editedAppointment.pet_id = pets.First().id_pet;
+
+                if (services.Any())
+                    editedAppointment.service_id = services.First().id_service;
+
+                break;
+        }
+        isFormModalOpen = true;
+
+    }
+
     private async Task OpenEditModal(UserModel user)
     {
-        editedUser = user;
+        isCreateMode = false;
+
+        editedUser = user; 
         currentEditType = "user";
         isFormModalOpen = true;
         StateHasChanged();
@@ -447,6 +560,8 @@
 
     private async Task OpenEditModal(PetModel pet)
     {
+        isCreateMode = false;
+
         editedPet = pet;
         currentEditType = "pet";
         isFormModalOpen = true;
@@ -455,6 +570,8 @@
 
     private async Task OpenEditModal(DoctorModel doctor)
     {
+        isCreateMode = false;
+
         editedDoctor = doctor;
         currentEditType = "doctor";
         isFormModalOpen = true;
@@ -463,7 +580,13 @@
 
     private async Task OpenEditModal(AppointmentModel appointment)
     {
+        isCreateMode = false;
+
+        var getBookedAppointment = await AppointmentRequests.GetAllAppointmentsByDoctor(appointment.doctor_id);
+        bookedAppointments = getBookedAppointment?.list ?? new();
+
         editedAppointment = appointment;
+
         currentEditType = "appointment";
         isFormModalOpen = true;
         StateHasChanged();
@@ -471,20 +594,98 @@
 
     private async Task SaveUser()
     {
-        var userResponse = await UserRequests.UpdateUser(editedUser);
+        if (isCreateMode)
+        {
+            await UserRequests.CreateNewUser(editedUser);
+        }
+        else
+        {
+            await UserRequests.UpdateUser(editedUser);
+        }
+        CloseFormModal();
+        await LoadAllData();
+
     }
     private async Task SavePet()
     {
-        var petResponse = await PetRequests.UpdatePet(editedPet);
+        await PetRequests.UpdatePet(editedPet);
+        CloseFormModal();
+        await LoadAllData();
 
     }
     private async Task SaveDoctor()
     {
-        // var doctorResponse = await AppointmentRequests.UpdateUser(editedUser);
+        var doctorRequest = new CreateDoctorRequest()
+        {
+            specialization = editedDoctor.specialization,
+            work_start = editedDoctor.work_start,
+            work_end = editedDoctor.work_end,
+            duration_slot = editedDoctor.duration_slot,
+            name = editedDoctor.user.name,
+            surname = editedDoctor.user.surname,
+            gender = editedDoctor.user.gender,
+            phone = editedDoctor.user.phone,
+            email = editedDoctor.user.email,
+            date_of_birth = editedDoctor.user.date_of_birth,
+            is_active = editedDoctor.is_active,
+        };
+
+        if (isCreateMode)
+        {
+            await AppointmentRequests.CreateDoctor(doctorRequest);
+        }
+        else
+        {
+            await AppointmentRequests.UpdateDoctor(editedDoctor);
+        }
+
+        CloseFormModal();
+        await LoadAllData();
+
     }
     private async Task SaveAppointment()
     {
-        var appointment = await AppointmentRequests.UpdateAppointment(editedAppointment);
+        if (editedAppointment.doctor_id != 0)
+        {
+            var getBookedAppointment = await AppointmentRequests.GetAllAppointmentsByDoctor(editedAppointment.doctor_id);
+            bookedAppointments = getBookedAppointment?.list ?? new();
+        }
+
+        if (isCreateMode)
+        {
+            await AppointmentRequests.AddAppointment(editedAppointment);
+        }
+        else
+        {
+            await AppointmentRequests.UpdateAppointment(editedAppointment);
+        }
+        CloseFormModal();
+        await LoadAllData();
+
+    }
+
+    private async Task DeleteUser(int userId)
+    {
+        await UserRequests.DeleteUser(userId);
+        await LoadAllData();
+    }
+
+    private async Task DeletePet(int petId)
+    {
+        await PetRequests.DeletePet(petId);
+        await LoadAllData();
+    }
+
+    private async Task DeleteDoctor(int doctorId)
+    {
+        await AppointmentRequests.DeleteDoctor(doctorId);
+        await LoadAllData();
+    }
+
+    private async Task DeleteAppointment(int appointmentId)
+    {
+        await AppointmentRequests.DeleteAppointment(appointmentId);
+        await LoadAllData();
     }
 
     private List<TimeOnly> GetAvailableSlots()
@@ -492,22 +693,22 @@
         var slots = new List<TimeOnly>();
         if (editedAppointment.doctor_id == null) return slots;
 
-        var current = doctors.Where(x=>x.id_doctor == editedAppointment.doctor_id).Select(x => x.work_start);
-        var duration = doctors.Where(x => x.id_doctor == editedAppointment.doctor_id).Select(x => x.duration_slot);
-        var endTime = doctors.Where(x => x.id_doctor == editedAppointment.doctor_id).Select(x => x.work_end);
+        var current = doctors.FirstOrDefault(x=>x.id_doctor == editedAppointment.doctor_id).work_start;
+        var duration = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).duration_slot;
+        var endTime = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).work_end;
 
-        while (current + (duration) <= endTime)
+        while (current < endTime)
         {
             bool isBusy = bookedAppointments.Any(x => x.time == current);
 
-            bool isPast = selectedDate == DateOnly.FromDateTime(DateTime.Today) && current < TimeOnly.FromDateTime(DateTime.Now);
+            bool isPast = editedAppointment.date == DateOnly.FromDateTime(DateTime.Today) && current < TimeOnly.FromDateTime(DateTime.Now);
 
             if (!isBusy && !isPast)
             {
                 slots.Add(current);
             }
 
-            current += duration;
+            current = current.AddMinutes(duration);
         }
 
         return slots;
@@ -516,6 +717,7 @@
     private void CloseFormModal()
     {
         isFormModalOpen = false;
+        isCreateMode = false;
     }
 
 }

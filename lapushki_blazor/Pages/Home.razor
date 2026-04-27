@@ -1,62 +1,124 @@
 ﻿@page "/"
+@using lapushki_blazor.ApiRequests.Services
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Лапушки</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="home-page">
 
-Welcome to your new app.
+    <section class="home-hero">
+        <div class="home-hero-text">
+            <div class="home-label">
+                <i class="bi bi-heart-fill"></i>
+                Забота о питомцах каждый день
+            </div>
 
-<h1>Hello, world!</h1>
+            <h1>Ветеринарная клиника «Лапушки»</h1>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <p>
+                Помогаем питомцам чувствовать себя лучше: консультации,
+                диагностика, вакцинация, лечение и экстренная помощь.
+            </p>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <div class="home-hero-actions">
+                <a class="home-main-btn" href="/servicesPage">
+                    Записаться на приём
+                </a>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+                <a class="home-outline-btn" href="/contacts">
+                    Контакты
+                </a>
+            </div>
+        </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+        <div class="home-hero-image">
+            <img src="/images/lapushki_logo_blue.png" alt="Питомцы" />
+        </div>
+    </section>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+    <section class="home-cards">
+        <div class="home-card">
+            <div class="home-icon">
+                <i class="bi bi-clipboard2-pulse-fill"></i>
+            </div>
+            <h3>Приём врача</h3>
+            <p>Осмотр, консультация и подбор лечения для вашего питомца.</p>
+        </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+        <div class="home-card">
+            <div class="home-icon">
+                <i class="bi bi-shield-check"></i>
+            </div>
+            <h3>Вакцинация</h3>
+            <p>Профилактика заболеваний и ежегодная защита животных.</p>
+        </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+        <div class="home-card">
+            <div class="home-icon">
+                <i class="bi bi-heart-pulse-fill"></i>
+            </div>
+            <h3>Диагностика</h3>
+            <p>Помогаем быстро понять причину плохого самочувствия.</p>
+        </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+        <div class="home-card">
+            <div class="home-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <h3>Экстренная помощь</h3>
+            <p>Подскажем, что делать, если питомцу срочно нужна помощь.</p>
+        </div>
+    </section>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+    <section class="home-info-row">
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+        <div class="home-info-card">
+            <h2>Почему выбирают нас</h2>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <div class="home-benefit">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Внимательное отношение к каждому питомцу</span>
+            </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <div class="home-benefit">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Удобная запись через сайт</span>
+            </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <div class="home-benefit">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Понятные рекомендации после приёма</span>
+            </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <div class="home-benefit">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Помощь при плановых и срочных обращениях</span>
+            </div>
+        </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+        <div class="home-contact-card">
+            <div class="home-icon">
+                <i class="bi bi-telephone-fill"></i>
+            </div>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <h2>Нужна консультация?</h2>
+            <p>Позвоните нам или выберите услугу на сайте.</p>
 
-Welcome to your new app.
-<h1>Hello, world!</h1>
+            <strong>+7 (999) 123-45-67</strong>
 
-Welcome to your new app.
+            <a class="home-main-btn" href="/contacts">
+                Как нас найти
+            </a>
+        </div>
+
+    </section>
+
+</div>
+
+@code {
+    [Inject] private UserRequests UserRequests { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await UserRequests.LoadUserFromToken();
+    }
+}
