@@ -1,4 +1,3 @@
-wwwroot\css\app.css
 wwwroot\css\bootstrap\bootstrap.min.css
 wwwroot\css\bootstrap\bootstrap.min.css.map
 wwwroot\favicon.png
@@ -17,3 +16,4 @@ wwwroot\images\pervichnii_osmotr_1.jpg
 wwwroot\images\services_pets.png
 wwwroot\index.html
 wwwroot\sample-data\weather.json
+wwwroot\css\app.css

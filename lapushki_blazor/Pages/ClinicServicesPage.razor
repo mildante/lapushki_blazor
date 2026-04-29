@@ -72,10 +72,12 @@
                     <div class="booking-form">
                         <div class="booking-field">
                             <label>Ветеринарный врач</label>
-                            <select @bind="selectedDoctorId">
+                            <select class="booking-input" @bind="selectedDoctorId" @bind:after="OnBookingChanged">
                                 @foreach (var doctor in doctors)
                                 {
-                                    <option value="@doctor.id_doctor">@doctor.user.name @doctor.user.surname, @doctor.specialization</option>
+                                    <option value="@doctor.id_doctor">
+                                        @doctor.user.name @doctor.user.surname, @doctor.specialization
+                                    </option>
                                 }
                             </select>
                         </div>
@@ -93,7 +95,11 @@
                         <div class="booking-row">
                             <div class="booking-field">
                                 <label>Дата</label>
-                                <input type="date" @bind="selectedDate" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                                <input class="booking-input"
+                                       type="date"
+                                       @bind="selectedDate"
+                                       @bind:after="OnBookingChanged"
+                                       min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                             </div>
 
                             <div class="booking-field">
@@ -167,12 +173,7 @@
 
     private int selectedServiceId;
 
-    private int _selectedDoctorId;
-    private int selectedDoctorId
-    {
-        get => _selectedDoctorId;
-        set { _selectedDoctorId = value; _ = RefreshBookedSlots(); }
-    }
+    private int selectedDoctorId;
 
     private int selectedPetId;
 
@@ -182,12 +183,7 @@
     private TimeOnly startTime => selectedDoctor?.work_start ?? new TimeOnly(9, 0);
     private TimeOnly endTime => selectedDoctor?.work_end ?? new TimeOnly(18, 0);
 
-    private DateOnly _selectedDate;
-    private DateOnly selectedDate
-    {
-        get => _selectedDate;
-        set { _selectedDate = value; _ = RefreshBookedSlots(); }
-    }
+    private DateOnly selectedDate;
 
     private TimeOnly selectedTime;
 
@@ -252,7 +248,8 @@
 
         while (current.Add(duration) <= endTime)
         {
-            bool isBusy = bookedAppointments.Any(x => x.time == current);
+            bool isBusy = bookedAppointments != null &&
+                          bookedAppointments.Any(x => x.date == selectedDate && x.time == current);
 
             bool isPast = selectedDate == DateOnly.FromDateTime(DateTime.Today) && current < TimeOnly.FromDateTime(DateTime.Now);
 
@@ -269,11 +266,17 @@
 
     private async Task RefreshBookedSlots()
     {
-        if (selectedDoctorId > 0)
+        if (selectedDoctorId <= 0)
         {
-            var response = await AppointmentRequests.GetAllAppointmentsByDoctor(selectedDoctorId);
-            bookedAppointments = response.list.Where(x => x.date == selectedDate).ToList();
+            bookedAppointments = new();
+            return;
         }
+
+        var response = await AppointmentRequests.GetAllAppointmentsByDoctor(selectedDoctorId);
+
+        bookedAppointments = response?.list?
+            .Where(x => x.date == selectedDate)
+            .ToList() ?? new();
     }
 
     private async Task Pay()
@@ -323,6 +326,20 @@
         }
 
         return 0;
+    }
+
+    private async Task OnBookingChanged()
+    {
+        await RefreshBookedSlots();
+
+        var available = GetAvailableSlots();
+
+        if (!available.Contains(selectedTime))
+        {
+            selectedTime = available.FirstOrDefault();
+        }
+
+        StateHasChanged();
     }
 
     private void GoToLogin()

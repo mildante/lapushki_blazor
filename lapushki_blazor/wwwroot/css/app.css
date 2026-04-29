@@ -1135,6 +1135,7 @@ profile-card-header {
     font-size: 20px;
     cursor: pointer;
     transition: transform 0.2s ease;
+    padding: 0px 20px
 }
 
     .booking-pay-btn:hover {
@@ -1479,7 +1480,7 @@ profile-card-header {
     width: 100%;
     max-width: 100%;
     border: 3px solid #261C6E;
-    border-radius: 28px;
+    border-radius: 20px;
     overflow-x: auto;
     background: rgba(255, 255, 255, 0.92);
 }

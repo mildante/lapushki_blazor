@@ -79,7 +79,7 @@
 
                 <div class="booking-field">
                     <label>Ветеринарный врач</label>
-                    <select @bind="editedAppointment.doctor_id">
+                    <select @bind="editedAppointment.doctor_id" @bind:after="RefreshBookingState">>
                         @foreach (var doctor in doctors)
                         {
                             <option value="@doctor.id_doctor">@doctor.user.name @doctor.user.surname, @doctor.specialization</option>
@@ -99,7 +99,7 @@
                 <div class="booking-row">
                     <div class="booking-field">
                         <label>Дата</label>
-                        <input type="date" @bind="editedAppointment.date" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                        <input type="date" @bind="editedAppointment.date" @bind:after="RefreshBookingState" min="@DateTime.Today.ToString("yyyy-MM-dd")" />
                     </div>
 
                     <div class="booking-field">
@@ -288,17 +288,28 @@
     private List<TimeOnly> GetAvailableSlots()
     {
         var slots = new List<TimeOnly>();
-        if (editedAppointment.doctor_id == null) return slots;
 
-        var current = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).work_start;
-        var duration = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).duration_slot;
-        var endTime = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id).work_end;
+        if (editedAppointment == null || editedAppointment.doctor_id == 0)
+            return slots;
+
+        var doctor = doctors.FirstOrDefault(x => x.id_doctor == editedAppointment.doctor_id);
+
+        if (doctor == null)
+            return slots;
+
+        var current = doctor.work_start;
+        var duration = doctor.duration_slot;
+        var endTime = doctor.work_end;
 
         while (current < endTime)
         {
-            bool isBusy = bookedAppointments.Any(x => x.time == current);
+            bool isBusy = bookedAppointments.Any(x =>
+                x.date == editedAppointment.date &&
+                x.time == current);
 
-            bool isPast = editedAppointment.date == DateOnly.FromDateTime(DateTime.Today) && current < TimeOnly.FromDateTime(DateTime.Now);
+            bool isPast =
+                editedAppointment.date == DateOnly.FromDateTime(DateTime.Today) &&
+                current < TimeOnly.FromDateTime(DateTime.Now);
 
             if (!isBusy && !isPast)
             {
@@ -360,4 +371,23 @@
         return 0;
     }
 
+    private async Task RefreshBookingState()
+    {
+        if (editedAppointment == null || editedAppointment.doctor_id == 0)
+        {
+            bookedAppointments = new();
+            return;
+        }
+
+        var response = await AppointmentRequests.GetAllAppointmentsByDoctor(editedAppointment.doctor_id);
+
+        bookedAppointments = response?.list
+            .Where(x => x.date == editedAppointment.date)
+            .ToList() ?? new();
+
+        var available = GetAvailableSlots();
+        editedAppointment.time = available.FirstOrDefault();
+
+        StateHasChanged();
+    }
 }

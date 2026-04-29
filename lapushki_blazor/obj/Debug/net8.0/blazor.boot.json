@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "lapushki_blazor",
   "resources": {
-    "hash": "sha256-1a9gyyKERHGzWTG+Rz/H/LMGgKg9Fy49vPQ1kF1qZvA=",
+    "hash": "sha256-k9m1dK1EZet18nsznVywevpxfHcb0vkw8j8B9uHFQzs=",
     "jsModuleNative": {
       "dotnet.native.js": "sha256-nElGk+CZFyq0PbPm4JU8avD6lER7x9Z1C54BK7qY12Q="
     },
@@ -211,10 +211,10 @@
       "mscorlib.wasm": "sha256-UzRTTeY8BezBltrUF59UgvVNxbmnZS3LeowarsPY8+Y=",
       "netstandard.wasm": "sha256-xHQSNwqHm8E9DM86qW7CTJoRXXsQuGmPeNipDwQFNr8=",
       "System.Private.CoreLib.wasm": "sha256-N9/Djwpe2mX4HdyhCGu9jrxG/DSYKoTPbtsIOv6VFDk=",
-      "lapushki_blazor.wasm": "sha256-2JYqCL9geOrUaX6SFuYme75gZHzLsx7qhvw8h5+N1B8="
+      "lapushki_blazor.wasm": "sha256-PvrAkRgkh4u/S4ioZOB/B26JXH4bQ+9Jvfn5r/5Diec="
     },
     "pdb": {
-      "lapushki_blazor.pdb": "sha256-SdTe1tnbFt6U6hJSBhl4otce4YZRDpllxwig8UXQC9A="
+      "lapushki_blazor.pdb": "sha256-lQriaWffVFJw6KGn+81kpJBm5UV8zLpVoiMxn4LPvJA="
     }
   },
   "cacheBootResources": true,
