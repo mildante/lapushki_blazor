@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9eLPIPV0RVQ=",
+  "dgSpecHash": "oVQjO7pOD7c=",
   "success": true,
   "projectFilePath": "D:\\study\\KTITS\\kursovaya\\lapushki_blazor\\lapushki_blazor\\lapushki_blazor.csproj",
   "expectedPackageFiles": [
@@ -31,7 +31,7 @@
     "C:\\Users\\milam\\.nuget\\packages\\microsoft.jsinterop\\8.0.25\\microsoft.jsinterop.8.0.25.nupkg.sha512",
     "C:\\Users\\milam\\.nuget\\packages\\microsoft.jsinterop.webassembly\\8.0.25\\microsoft.jsinterop.webassembly.8.0.25.nupkg.sha512",
     "C:\\Users\\milam\\.nuget\\packages\\microsoft.net.illink.tasks\\8.0.26\\microsoft.net.illink.tasks.8.0.26.nupkg.sha512",
-    "C:\\Users\\milam\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\10.0.6\\microsoft.net.sdk.webassembly.pack.10.0.6.nupkg.sha512",
+    "C:\\Users\\milam\\.nuget\\packages\\microsoft.net.sdk.webassembly.pack\\10.0.7\\microsoft.net.sdk.webassembly.pack.10.0.7.nupkg.sha512",
     "C:\\Users\\milam\\.nuget\\packages\\system.io.pipelines\\8.0.0\\system.io.pipelines.8.0.0.nupkg.sha512",
     "C:\\Users\\milam\\.nuget\\packages\\microsoft.netcore.app.runtime.mono.browser-wasm\\8.0.26\\microsoft.netcore.app.runtime.mono.browser-wasm.8.0.26.nupkg.sha512"
   ],

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("lapushki_blazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b4318a063e34458fce0cba10577b6a42904111a")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80e50b5ab6eaa957b1057110c35a4d4606396915")]
 [assembly: System.Reflection.AssemblyProductAttribute("lapushki_blazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("lapushki_blazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
